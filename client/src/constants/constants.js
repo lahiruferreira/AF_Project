@@ -1,0 +1,10 @@
+export const REGISTER_SUCCESS = "REGISTER SUCCESS";
+export const LOGIN_SUCCESS = "LOGIN SUCCESS";
+export const LOGIN_FAIL = "LOGIN FAIL";
+export const REGISTER_FAIL = "REGISTER FAIL";
+export const LOAD_USER = "LOAD USER";
+export const AUTH_ERROR = "AUTHENTICATION ERROR";
+export const LOG_OUT = "LOG OUT";
+export const ADMIN_LOGIN_SUCCESS = "ADMIN LOGIN SUCCESS";
+export const ADMIN_LOGIN_FAIL = "ADMIN LOGIN FAIL";
+export const LOAD_ADMIN = "LOAD ADMIN";
