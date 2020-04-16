@@ -11,18 +11,18 @@ const Login = ({ loginUser, isLoggedIn }) => {
         password:''
     });
 
-    if(isLoggedIn)
+    if(isLoggedIn) {
         return <Redirect to="/UserPages"/>
-
+    }
     let {email, password} = data;
 
     const onChange = e => {
         setData({...data,[e.target.name]: e.target.value})
-    }
+    };
 
     const submitData = () => {
         loginUser(email,password);
-    }
+    };
 
     return (
 

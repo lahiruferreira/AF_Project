@@ -38,7 +38,7 @@ router.post(
             }
 
             if(user){
-                return res.status(401).json({msg: "There is already user who uses this email"})
+                return res.status(401).json({alert: "There is a already user who uses this email"})//msg tibbe alert kala
             }
 
             const salt = await bcryptjs.genSalt(10);
@@ -78,7 +78,7 @@ router.post(
 router.post(
     '/login',
     [
-        check('email','Type proper Email').isEmail(),
+        check('email', 'Type Proper Email').isEmail(),//mathana tibbe user is required pahala eke password is required
         check('password','Password is required').not().isEmpty()
     ],
     async (req,res) => {
@@ -114,9 +114,10 @@ router.post(
                 )
 
             } else return res.status(401).json({msg:"Password is not Matching "})
+
         }catch (e) {
             console.log(e.message);
-            return res.status(500).json({msg:"server Error..."});
+            return res.status(500).json({alert:"server Error..."});
         }
     }
 );
