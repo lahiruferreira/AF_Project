@@ -9,6 +9,11 @@ import {loadUser} from "./action/auth";
 import {setToken} from "./setToken";
 import UserPages from "./Pages/UserPages";
 import AdminPages from "./Pages/AdminPages";
+import Header from "./Pages/Header";
+import Footer from "./Pages/Footer";
+import Feedback from "./Pages/Feedback";
+import ContactUs from "./Pages/Contactus";
+
 
 if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'));
@@ -20,7 +25,9 @@ const App = () => {
     },[]);
 
     return (
-        <div>
+        <div className="page-container">
+            <div className="content-wrap">
+            <Header/>
             <Provider store={store}>
                 <Router>
                     <Switch>
@@ -28,10 +35,15 @@ const App = () => {
                         <Route path="/login" component={Login}/>
                         <Route path="/UserPages" component={UserPages}/>
                         <Route path="/admin" component={AdminPages}/>
+                        <Route path="/feedback" component={Feedback}/>
+                        <Route path="/contact-us" component={ContactUs}/>
                         <Route path="/" component={Dashboard}/>
+
                     </Switch>
                 </Router>
             </Provider>
+            </div>
+
         </div>
     );
 }

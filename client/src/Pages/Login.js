@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {loginUser} from "../action/auth";
 import { connect } from 'react-redux';
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import '../CSS/login.css';
+
 
 const Login = ({ loginUser, isLoggedIn }) => {
 
@@ -26,7 +27,8 @@ const Login = ({ loginUser, isLoggedIn }) => {
 
     return (
 
-        <div className="container col-md-auto">
+        <div className="container">
+
             <div className="whole-page">
                 <div className="parent-heading col-md-auto">
                     <div className="heading1">
@@ -56,15 +58,22 @@ const Login = ({ loginUser, isLoggedIn }) => {
                                value={password}
                                name="password"/>
                     </div>
+                   
+                        <a href="/register">Register</a>
+
                     <button type="submit"
                             className="btn btn-primary"
                             onClick={() => submitData()}>Submit
                     </button>
+
+
                     <br/>
                     <br/>
                 </div>
             </div>
+
         </div>
+
     );
 }
 
