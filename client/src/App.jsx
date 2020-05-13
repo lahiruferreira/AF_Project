@@ -17,7 +17,7 @@ const App = () => {
 
     useEffect(() => {
         store.dispatch(loadUser())
-    },[])
+    },[]);
 
     return (
         <div>

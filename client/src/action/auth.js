@@ -36,7 +36,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
                 'Content-Type': 'application/json'
             }
         }
-        const body = JSON.stringify({firstName, lastName, email, password})
+        const body = JSON.stringify({firstName, lastName,   email, password})
         const response = await axios.post('http://localhost:4001/api/users/register',body,config);
 
         dispatch({
