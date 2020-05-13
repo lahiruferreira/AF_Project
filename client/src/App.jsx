@@ -8,7 +8,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {loadUser} from "./action/auth";
 import {setToken} from "./setToken";
 import UserPages from "./Pages/UserPages";
-import AdminPages from "./Pages/AdminPages";
+import AdminPages from "./Pages/Admin/AdminPages";
 import Header from "./Pages/Header";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/ContactUs";

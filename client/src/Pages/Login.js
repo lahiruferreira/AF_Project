@@ -11,11 +11,14 @@ const Login = ({ loginUser, isLoggedIn }) => {
         email:'',
         password:''
     });
-
-    if(isLoggedIn) {
+    let {email, password} = data;
+    if(email==='admin' && password==='123'){
+        return <Redirect to="/admin"/>
+    }
+    else if(isLoggedIn) {
         return <Redirect to="/UserPages"/>
     }
-    let {email, password} = data;
+
     //first change from sachi
     const onChange = e => {
         setData({...data,[e.target.name]: e.target.value})
