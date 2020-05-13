@@ -26,15 +26,15 @@ const Login = ({ loginUser, isLoggedIn }) => {
 
     return (
 
-        <div className="container">
+        <div className="container col-md-auto">
             <div className="whole-page">
-                <div className="parent-heading">
-                    <div className="heading2">
+                <div className="parent-heading col-md-auto">
+                    <div className="heading1">
                         <p>LOGIN</p>
                     </div>
                 </div>
 
-                <div className="login_form">
+                <div className="login_form ">
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email address</label>
                         <input type="email"
