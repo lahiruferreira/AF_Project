@@ -10,7 +10,6 @@ import {setToken} from "./setToken";
 import UserPages from "./Pages/UserPages";
 import AdminPages from "./Pages/AdminPages";
 import Header from "./Pages/Header";
-import Footer from "./Pages/Footer";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/Contactus";
 
