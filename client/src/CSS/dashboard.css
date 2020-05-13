@@ -1,39 +1,16 @@
-.mainDashboard{
-    width: 50%;
-    height: 600px;
-    color: white;
-    background-color: #282c34;
-    margin: 70px 25% 70px;
-}
-.mainDashboard h1{
-    
-}
-.content_dashboard1{
-    width: 100px;
-    font-size: 34px;
-    margin: 10px;
+.container-dashboard{
+    padding: 1%;
+    margin: 10vh;
+    height: 100%;
+    display: flex;
+    background-color: lightseagreen;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px black;
 }
 
-.content_dashboard2{
-    width: 100px;
-    margin: 10px;
-    font-size: 34px;
-}
+.imageHome{
+    width:75%;
+    height: 50vh;
 
-.content_dashboard3{
-    width: 100px;
-    font-size: 34px;
-    margin: 10px;
-}
-
-button{
-   background-color: transparent;
-    border: none;
-    color: lightseagreen;
-}
-
-.nav_btn{
-    margin-top: -500px;
-    margin-left: 300px;
 }
 
