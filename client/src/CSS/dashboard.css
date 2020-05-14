@@ -1,16 +1,5 @@
-.container-dashboard{
-    padding: 1%;
-    margin: 10vh;
-    height: 100%;
-    display: flex;
-    background-color: lightseagreen;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px black;
+#carouselExampleControls{
+    width: 80%;
+    margin: auto;
+    padding-bottom: 100px;
 }
-
-.imageHome{
-    width:75%;
-    height: 50vh;
-
-}
-
