@@ -15,7 +15,7 @@
     background-color: #282c34;
 }
 
-.form-group {
+.form-group-1 {
     color: white;
 }
 
@@ -27,11 +27,10 @@
     color: white;
 }
 
-.parent-heading{
+.parent-heading-1{
     background-color: white;
     display: flex;
     padding: 10px;
-    width: 30%;
     text-align: center;
     margin-left: 1%;
     margin-top: 1%;
@@ -40,6 +39,7 @@
 
 .heading1{
     color: #282c34;
+    width: 150px;
     margin:auto;
 }
 

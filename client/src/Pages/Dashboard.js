@@ -7,9 +7,12 @@ import image3 from "../Images/dressnew3.jpg";
 import image5 from "../Images/dressnew4.jpg";
 import image6 from "../Images/dressnew5.jpg";
 import image7 from "../Images/dressnew6.jpg";
+import Header from "./Header";
 
 const Dashboard = () => {
     return (
+    <div>
+        <Header/>
         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
             <div className="carousel-inner">
                 <div className="carousel-item active">
@@ -40,6 +43,7 @@ const Dashboard = () => {
                 <span className="sr-only">Next</span>
             </a>
         </div>
+    </div>
     );
 }
 

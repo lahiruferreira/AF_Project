@@ -26,10 +26,11 @@ const App = () => {
     return (
         <div className="page-container">
             <div className="content-wrap">
-            <Header/>
+
             <Provider store={store}>
                 <Router>
                     <Switch>
+
                         <Route path="/register" component={Register}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/UserPages" component={UserPages}/>
