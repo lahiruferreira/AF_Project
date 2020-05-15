@@ -2,12 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {logOut} from "../action/auth";
 import { Redirect } from "react-router-dom";
+import Header from "./Header";
 
 
 
 const UserPages = ({isLoggedIn,logOut}) => {
 
     return (
+        <div>
+            <Header/>
         <div>
             <h1>User Pages</h1>
             {
@@ -28,6 +31,7 @@ const UserPages = ({isLoggedIn,logOut}) => {
                         </div>
                     )
             }
+        </div>
         </div>
     );
 }

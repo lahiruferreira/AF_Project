@@ -3,6 +3,7 @@ import { connect} from 'react-redux';
 import { registerUser } from "../action/auth";
 import {Redirect} from 'react-router-dom';
 import '../CSS/registercss/register.css';
+import Header from "./Header";
 
 const Register = ({isLoggedIn, registerUser}) => {
 
@@ -30,6 +31,8 @@ const Register = ({isLoggedIn, registerUser}) => {
         }
     }
     return (
+        <div>
+            <Header/>
         <div className="container">
 
             <div className="register-parent">
@@ -139,7 +142,7 @@ const Register = ({isLoggedIn, registerUser}) => {
             </div>
 
         </div>
-
+        </div>
     );
 }
 
