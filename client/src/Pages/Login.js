@@ -17,7 +17,8 @@ const Login = ({ loginUser, isLoggedIn }) => {
         return <Redirect to="/admin"/>
     }
     else if(isLoggedIn) {
-        return <Redirect to="/UserPages"/>
+        console.log('loged IN in log function');
+        return <Redirect to="/CartView"/>
     }
 
     //first change from sachi
