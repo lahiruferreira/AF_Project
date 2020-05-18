@@ -1,23 +1,5 @@
-.mainDashboard{
-    width: 50%;
-    height: 600px;
-    color: white;
-    background-color: #282c34;
-    margin: 70px 25% 70px;
+#carouselExampleControls{
+    width: 80%;
+    margin: auto;
+    padding-bottom: 100px;
 }
-.mainDashboard h1{
-    
-}
-.content_dashboard1{
-    background-color: black;
-}
-
-.content_dashboard2{
-    background-color: brown;
-}
-
-.content_dashboard3{
-    background-color: blue;
-}
-
-

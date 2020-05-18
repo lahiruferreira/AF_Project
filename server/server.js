@@ -7,6 +7,13 @@ app.use(cors());
 app.use(express.json({extended: false}));
 
 app.use('/api/users', require('./routes/users'));
+const categoryRouter = require('./routes/category');
+const productRouter = require('./routes/product');
+const cartRouter = require('./routes/cart')
+
+app.use('/category', categoryRouter);
+app.use('/product', productRouter);
+app.use('/cart',cartRouter);
 /*app.get(
     '/',
     (req,res) => {

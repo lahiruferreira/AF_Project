@@ -85,7 +85,7 @@ router.post(
         try{
             const {email,password} = req.body;
             const errors = validationResult(req);
-            let user = await UserSchema.findOne({email})
+            let user = await UserSchema.findOne({email});
 
             if(!errors.isEmpty()){
                 return res.status(401).json({ errors: errors.array()});

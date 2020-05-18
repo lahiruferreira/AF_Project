@@ -1,12 +1,9 @@
 .whole-page{
-    border-radius: 10px;
+    padding: 1%;
+    margin: 10vh;
     display: flex;
-    width: 70%;
-    margin-left: auto;
-    margin-top: 10vh;
-    margin-right: 10%;
     background-color: lightseagreen;
-    height: 80vh;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px 0px black;
 }
 .login_form{
@@ -18,7 +15,7 @@
     background-color: #282c34;
 }
 
-.form-group {
+.form-group-1 {
     color: white;
 }
 
@@ -30,24 +27,24 @@
     color: white;
 }
 
-.parent-heading{
+.parent-heading-1{
     background-color: white;
     display: flex;
     padding: 10px;
-    width: 30%;
     text-align: center;
     margin-left: 1%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
 
-.heading2{
+.heading1{
     color: #282c34;
+    width: 150px;
     margin:auto;
 }
 
-.heading2 p{
-    font-size: 30px;
+.heading1 p{
+    font-size: 20px;
 }
 
 .btn{
