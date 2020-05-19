@@ -1,5 +1,38 @@
 const router = require('express').Router();
 let Product = require('../schemas/product.model');
+const multer = require('multer');
+const path = require("path");
+const auth = require('../middleware/auth');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}`);
+    },
+    fileFilter: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        if (ext !== '.jpg' || ext !== '.png') {
+            return cb(null, false);
+        }
+        cb(null, true)
+    }
+});
+
+const upload = multer({ storage: storage }).single("file")
+
+router.post("/uploadImage", (req, res) => {
+
+    upload(req, res, err => {
+        if (err) {
+            return res.json({ success: false, err })
+        }
+        return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
+    })
+
+});
+
 
 router.route('/').get((req, res) => {
     Product.find()

@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component } from 'react';
 import axios from 'axios';
+import FileUpload from "../utils/FileUpload";
+import {Redirect} from "react-router-dom";
 
 export default class CreateProduct extends Component {
     constructor(props) {
@@ -24,7 +26,10 @@ export default class CreateProduct extends Component {
             PImage : "",
             Category : []
         }
+
+
     }
+
 
     componentDidMount() {
 
@@ -83,6 +88,8 @@ export default class CreateProduct extends Component {
         });
     }
 
+
+
     onSubmit(e){
         e.preventDefault();
 
@@ -94,23 +101,25 @@ export default class CreateProduct extends Component {
             PAmount : this.state.PAmount,
             PPrice : this.state.PPrice,
             PImage : this.state.PImage
-        }
+        };
 
         console.log(product);
 
         axios.post("http://localhost:4001/product/add", product)
             .then(res => console.log(res.data));
 
+        {return <Redirect to="/list"/> }
     }
 
     render() {
+
         return (
             <div>
                 <h3>Create New Product</h3>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} >
                     <div className="form-group">
                         <label>Product Category: </label>
-                        <select ref="userInput"
+                        <select
                             required
                                 className="form-control"
                                 value={this.state.PCategory}
@@ -128,45 +137,40 @@ export default class CreateProduct extends Component {
 
                     <div className="form-group">
                         <label>Product Name: </label>
-                        <input type="text" required className="form-control"
+                        <input type="text"  className="form-control"
                                 value={this.state.PName}
                                 onChange={this.onChangePName}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Description: </label>
-                        <input type="text" required className="form-control"
+                        <input type="text"  className="form-control"
                                value={this.state.PDescription}
                                onChange={this.onChangePDescription}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Brand: </label>
-                        <input type="text" required className="form-control"
+                        <input type="text"  className="form-control"
                                value={this.state.PBrand}
                                onChange={this.onChangePBrand}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Amount: </label>
-                        <input type="text" required className="form-control"
+                        <input type="text" className="form-control"
                                value={this.state.PAmount}
                                onChange={this.onChangePAmount}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Price: </label>
-                        <input type="text" required className="form-control"
+                        <input type="text"  className="form-control"
                                value={this.state.PPrice}
                                onChange={this.onChangePPrice}/>
                     </div>
 
-                    <div className="form-group">
-                        <label>Product Image: </label>
-                        <input type="file" required className="form-control"
-                               value={this.state.PImage}
-                               onChange={this.onChangePImage}/>
-                    </div>
+                    <FileUpload refreshFunction={this.onChangePImage}/>
 
                     <div className="form-group">
                         <input type="submit" value="Add Product" className="btn btn-primary"/>

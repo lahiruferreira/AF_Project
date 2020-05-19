@@ -13,11 +13,12 @@ const Login = ({ loginUser, isLoggedIn }) => {
         password:''
     });
     let {email, password} = data;
-    if(email==='admin' && password==='123'){
-        return <Redirect to="/admin"/>
-    }
-    else if(isLoggedIn) {
-        return <Redirect to="/UserPages"/>
+    if(isLoggedIn) {
+        if(email==='admin@gmail.com' && password==='admin'){
+            return <Redirect to="/admin"/>
+        }else{
+            return <Redirect to="/UserPages"/>
+        }
     }
 
     //first change from sachi
