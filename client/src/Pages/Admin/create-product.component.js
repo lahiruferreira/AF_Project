@@ -42,8 +42,6 @@ export default class CreateProduct extends Component {
                     });
                 }
             })
-
-
     }
 
     onChangePName(e){
