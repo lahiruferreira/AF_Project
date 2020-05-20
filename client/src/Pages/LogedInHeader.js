@@ -1,11 +1,15 @@
 import React from "react";
 import '../CSS/header.css';
+import {logOut} from "../action/auth";
 import logo from '../Images/logo.jpg';
 import 'font-awesome/css/font-awesome.css';
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 
-const LogedinHeader = () => {
+const LogedinHeader = ({isLoggedIn,logOut}) => {
     return (
+        isLoggedIn ? (
         <div className="container-parent2">
 
             <div className="container-child">
@@ -63,7 +67,7 @@ const LogedinHeader = () => {
                                 <a className="nav-link" href="/contact-us"><i className="fa fa-list fa-2x" /> Wishlist <span className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item active">
-                                <a className="nav-link" href="/login"><i className="fa fa-user fa-2x" /> Logout <span className="sr-only">(current)</span></a>
+                                <a className="nav-link" onClick={() => logOut()}><i className="fa fa-user fa-2x" /> Logout <span className="sr-only">(current)</span></a>
                             </li>
                         </ul>
 
@@ -71,8 +75,18 @@ const LogedinHeader = () => {
                 </nav>
             </div>
         </div>
+        ):
+            (
+                <div>
+                    <Redirect to="/"></Redirect>
+                </div>
+            )
     );
 }
 
+const mapStateToProps = state => ({
+    isLoggedIn: state.isLoggedIn
+});
 
-export default (LogedinHeader);
+export default connect(mapStateToProps,{ logOut})(LogedinHeader);
+//export default (LogedinHeader);
