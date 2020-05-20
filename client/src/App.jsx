@@ -12,6 +12,7 @@ import AdminPages from "./Pages/Admin/AdminPages";
 import Header from "./Pages/Header";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/ContactUs";
+import CartView from "./Pages/CartView";
 
 
 if(localStorage.getItem('token')){
@@ -30,15 +31,14 @@ const App = () => {
             <Provider store={store}>
                 <Router>
                     <Switch>
-
                         <Route path="/register" component={Register}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/UserPages" component={UserPages}/>
                         <Route path="/admin" component={AdminPages}/>
                         <Route path="/feedback" component={Feedback}/>
                         <Route path="/contact-us" component={ContactUs}/>
+                        <Route path="/CartView" component={CartView}/>
                         <Route path="/" component={Dashboard}/>
-
                     </Switch>
                 </Router>
             </Provider>

@@ -1,16 +1,21 @@
 import React from "react";
 import '../CSS/header.css';
+import {logOut} from "../action/auth";
 import logo from '../Images/logo.jpg';
+import 'font-awesome/css/font-awesome.css';
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 
-const Header = () => {
+const LogedinHeader = ({isLoggedIn,logOut}) => {
     return (
+        isLoggedIn ? (
         <div className="container-parent2">
 
-                <div className="container-child">
-                    <img src={logo}
-                        alt="logo"/>
-                </div>
+            <div className="container-child">
+                <img src={logo}
+                     alt="logo"/>
+            </div>
 
             <div className="nav-header">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -52,24 +57,36 @@ const Header = () => {
                             <li className="nav-item active">
                                 <a className="nav-link" href="/contact-us">Contact-us <span className="sr-only">(current)</span></a>
                             </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/admin">Admin <span className="sr-only">(current)</span></a>
-                            </li>
-
-
                         </ul>
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                                   aria-label="Search"/>
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            <a href="/login">Login</a>
-                        </form>
+
+                        <ul className="navbar-nav navbar-right">
+                            <li className="nav-item active">
+                                <a className="nav-link" href="/contact-us"><i className="fa fa-shopping-cart fa-2x" /> Shopping Cart <span className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" href="/contact-us"><i className="fa fa-list fa-2x" /> Wishlist <span className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" onClick={() => logOut()}><i className="fa fa-user fa-2x" /> Logout <span className="sr-only">(current)</span></a>
+                            </li>
+                        </ul>
+
                     </div>
                 </nav>
             </div>
         </div>
+        ):
+            (
+                <div>
+                    <Redirect to="/"></Redirect>
+                </div>
+            )
     );
 }
 
+const mapStateToProps = state => ({
+    isLoggedIn: state.isLoggedIn
+});
 
-export default (Header);
+export default connect(mapStateToProps,{ logOut})(LogedinHeader);
+//export default (LogedinHeader);
