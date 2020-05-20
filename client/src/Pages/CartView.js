@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {logOut} from "../action/auth";
+import {loginUser, logOut} from "../action/auth";
 import { Redirect } from "react-router-dom";
 import LogedinHeader from "./LogedInHeader";
 import logo from '../Images/logo.jpg';
@@ -12,7 +12,10 @@ import axios from 'axios';
 
     constructor(props) {
         super(props);
-         this.state = {products: [] };
+         this.state = {
+             products: [] ,
+             user:loginUser
+         };
         this.productList = this.productList.bind(this);
     }
 
@@ -28,8 +31,6 @@ import axios from 'axios';
     }
 
     productList(){
-        var data = this.state.products;
-        console.log(data);
         return this.state.products.map(product =>(
             <div className="col-sm-6 col-md-4 mb-3">
                 <div className="img-thumbnail">
@@ -40,7 +41,7 @@ import axios from 'axios';
                         <div className="clearfix">
                             <div className="pull-left" style={{fontWeight:"bold" ,fontSize:"16px"}}>Rs {product.PPrice}</div>
                             <p className="pull-right"><a href="#" className="btn btn-success" role="button">Add To Cart</a>
-                                <a href="#" className="btn btn-info" role="button">Wish List</a></p>
+                                <a href={'/add-to-cart/'+ product._id} className="btn btn-info" role="button">Wish List</a></p>
                         </div>
                     </div>
                 </div>
