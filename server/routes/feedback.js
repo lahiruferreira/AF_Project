@@ -1,11 +1,11 @@
 const router = require('express').Router();
 let Feedback = require('../schemas/feedback.model');
 
-/*router.route('/').get((req, res) => {
-    Category.find()
-        .then(category => res.json(category))
+router.route('/').get((req, res) => {
+    Feedback.find()
+        .then(feedback => res.json(feedback))
         .catch(err => res.status(400).json('Error: ' + err));
-});*/
+});
 
 router.route('/add').post((req, res) =>{
     const name = req.body.name;

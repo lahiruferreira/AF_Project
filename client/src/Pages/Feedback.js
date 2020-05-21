@@ -134,6 +134,15 @@ const Feedback = () => {
 
             if (r.status === 200) {
                 alert("Feedback Posted!!");
+                document.getElementById('name').value = '';
+                document.getElementById('emailId').value = '';
+                document.getElementById('comment').value = '';
+                setFeedback({
+                    name: "",
+                    email: "",
+                    rating: 1,
+                    comment: "",
+                })
             } else {
                 alert("Error " + r.status + " Occurred..")
             }
@@ -142,7 +151,7 @@ const Feedback = () => {
     }
 
     return (
-        <div>
+        <>
             <Header/>
             <div className="pt-0">
                 <Container>
@@ -178,7 +187,7 @@ const Feedback = () => {
                     </Card>
                 </Container>
             </div>
-        </div>
+        </>
     );
 }
 
