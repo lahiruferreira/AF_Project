@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import axios from 'axios';
 import FileUpload from "../utils/FileUpload";
+import FileBase64 from "react-file-base64";
 
 export default class EditProduct extends Component {
     constructor(props) {
@@ -12,7 +13,6 @@ export default class EditProduct extends Component {
         this.onChangePBrand = this.onChangePBrand.bind(this);
         this.onChangePAmount = this.onChangePAmount.bind(this);
         this.onChangePPrice = this.onChangePPrice.bind(this);
-        this.onChangePImage = this.onChangePImage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -23,7 +23,8 @@ export default class EditProduct extends Component {
             PAmount : 0,
             PPrice : 0,
             PImage : "",
-            Category : []
+            Category : [],
+            baseImage: ""
         }
 
 
@@ -97,9 +98,9 @@ export default class EditProduct extends Component {
         });
     }
 
-    onChangePImage(e){
+    getFiles(files){
         this.setState({
-            PImage: e.target.value
+            PImage: files.base64.toString()
         });
     }
 
@@ -122,7 +123,7 @@ export default class EditProduct extends Component {
 
         axios.post("http://localhost:4001/product/update/"+this.props.match.params.id, product)
             .then(res => console.log(res.data));
-        window.location = '/admin';
+
     }
 
     render() {
@@ -184,7 +185,14 @@ export default class EditProduct extends Component {
                                onChange={this.onChangePPrice}/>
                     </div>
 
-                    <FileUpload refreshFunction={this.onChangePImage}/>
+                    <div className="process">
+                        <FileBase64
+                            multiple={ false }
+                            onDone={ this.getFiles.bind(this) } />
+                    </div>
+                    <div className="text-center">
+                        <img className="img1" src={this.state.PImage} />
+                    </div>
 
                     <div className="form-group">
                         <input type="submit" value="Update Product" className="btn btn-primary"/>
