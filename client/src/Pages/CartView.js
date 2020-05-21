@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
-import {loginUser, logOut} from "../action/auth";
-import { Redirect } from "react-router-dom";
+//import {connect} from "react-redux";
+import {loginUser} from "../action/auth";
+//import { Redirect } from "react-router-dom";
 import LogedinHeader from "./LogedInHeader";
 import logo from '../Images/logo.jpg';
 import '../CSS/CartView.css';

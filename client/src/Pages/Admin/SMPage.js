@@ -1,16 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
 import {logOut} from "../../action/auth";
-//import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Header from "../Header";
 
 
 
-
-const AdminLogout = ({isLoggedIn,logOut}) => {
+const SMPage = ({isLoggedIn,logOut}) => {
 
     return (
         <div>
-                <h1>Admin Logout</h1>
+            <Header/>
+            <div>
+                <h1>SM Pages</h1>
                 {
                     isLoggedIn ? (
 
@@ -25,11 +27,11 @@ const AdminLogout = ({isLoggedIn,logOut}) => {
                         ) :
                         (
                             <div>
-                                {window.location="/"}
+                                <Redirect to="/"></Redirect>
                             </div>
                         )
                 }
-
+            </div>
         </div>
     );
 }
@@ -39,4 +41,4 @@ const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn
 });
 
-export default connect(mapStateToProps,{ logOut})(AdminLogout);
+export default connect(mapStateToProps,{ logOut})(SMPage);

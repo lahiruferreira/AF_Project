@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {loginUser} from "../action/auth";
 import { connect } from 'react-redux';
-import {Link, Redirect} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import '../CSS/login.css';
 import Header from "./Header";
 
 
-const Login = ({ loginUser, isLoggedIn }) => {
+const Login = ({ loginUser, isLoggedIn}) => {
 
     let [data,setData] = useState({
         email:'',
@@ -87,4 +87,4 @@ const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn
 })
 
-export default connect(mapStateToProps,{ loginUser })(Login);
+export default connect(mapStateToProps,{ loginUser})(Login);

@@ -9,7 +9,14 @@ module.exports = function (req,res,next) {
             token,
             config.get('jwtSecret')
         )
+        //newly added
+        const verifiedSM = jwt.verify(
+            token,
+            config.get('jwtSecret')
+        )
+
         req.user = verifiedUser.user;
+        req.store_manager = verifiedSM.store_manager;//this line newly added
         next();
     }catch (e) {
         console.log(e.message)

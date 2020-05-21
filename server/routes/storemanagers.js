@@ -1,9 +1,11 @@
+//import {sendEmail} from "../mailer";
+
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const { check, validationResult} = require('express-validator');
-const UserSchema = require('../schemas/User');
+const SMSchema = require('../schemas/StoreManagers');
 const config = require('config');
 const auth = require('../middleware/auth');
 
@@ -12,8 +14,8 @@ router.get (
     auth,
     async (req,res) => {
         try{
-            const user =  await UserSchema.findById(req.user.id).select('-password');
-            await res.json(user);
+            const store_manager =  await SMSchema.findById(req.store_manager.id).select('-password');
+            await res.json(store_manager);
         }catch (e) {
             console.log(e.message);
             return res.status(500).json({msg:"server Error..."});
@@ -21,7 +23,7 @@ router.get (
     }
 )
 router.post(
-    '/register',
+    '/sm_register',
     [
         check('firstName','First Name is required').not().isEmpty(),
         check('lastName','Last Name is required').not().isEmpty(),
@@ -31,31 +33,31 @@ router.post(
     async (req,res) =>{
         try{
             let { firstName, lastName, email, password } = req.body;
-            let user = await UserSchema.findOne({ email });
+            let store_manager= await SMSchema.findOne({ email });
             const errors = validationResult(req);
             if(!errors.isEmpty()){
                 return res.status(401).json({errors: errors.array()});
             }
 
-            if(user){
+            if(store_manager){
                 return res.status(401).json({alert: "There is a already user who uses this email"})//msg tibbe alert kala
             }
 
             const salt = await bcryptjs.genSalt(10);
             password = await bcryptjs.hash(password,salt);
 
-            user = new UserSchema({
+            store_manager = new SMSchema({
                 firstName,
                 lastName,
                 email,
                 password
             });
 
-            await  user.save();
+            await  store_manager.save();
 
             const payload = {
-                user: {
-                    id: user.id
+                store_manager: {
+                    id: store_manager.id
                 }
             }
 
@@ -68,6 +70,8 @@ router.post(
                 }
             )
 
+           //sendEmail(to,name);
+
         }catch (e) {
             console.log(e.message);
             return res.status(500).json({msg:"server Error..."});
@@ -77,7 +81,7 @@ router.post(
 
 
 router.post(
-    '/login',
+    '/sm_login',
     [
         check('email', 'Type Proper Email').isEmail(),//mathana tibbe user is required pahala eke password is required
         check('password','Password is required').not().isEmpty()
@@ -86,22 +90,22 @@ router.post(
         try{
             const {email,password} = req.body;
             const errors = validationResult(req);
-            let user = await UserSchema.findOne({email});
+            let store_manager = await SMSchema.findOne({email});
 
             if(!errors.isEmpty()){
                 return res.status(401).json({ errors: errors.array()});
             }
-            if(!user){
+            if(!store_manager){
                 return res.status(401).json({msg: "There is no user with this email"});
             }
 
-            let isPasswordMatch = await bcryptjs.compare(password,user.password);
+            let isPasswordMatch = await bcryptjs.compare(password,store_manager.password);
 
             if(isPasswordMatch){
 
                 const payload = {
-                    user: {
-                        id: user.id
+                    store_manager: {
+                        id: store_manager.id
                     }
                 };
 

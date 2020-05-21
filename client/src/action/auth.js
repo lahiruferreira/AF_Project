@@ -5,7 +5,7 @@ import {
     REGISTER_FAIL,
     LOAD_USER,
     AUTH_ERROR,
-    LOG_OUT
+    LOG_OUT, LOAD_SM
 } from '../constants/constants';
 import axios from 'axios';
 import { setToken } from "../setToken";
@@ -19,6 +19,25 @@ export const loadUser = () => async dispatch => {
 
         dispatch({
             type:LOAD_USER,
+            payload:response.data
+        })
+    }catch (e) {
+        dispatch({
+            type:AUTH_ERROR,
+            payload: e
+        })
+    }
+}
+
+export const loadSM = () => async dispatch => {
+    if(localStorage.getItem('token')){
+        setToken(localStorage.getItem('token'));
+    }
+    try{
+        const response = await axios.get('http://localhost:4001/api/store_manager');
+
+        dispatch({
+            type:LOAD_SM,
             payload:response.data
         })
     }catch (e) {
@@ -54,7 +73,86 @@ export const registerUser = (firstName, lastName, email, password) => async disp
     }
 }
 
+export const registerSM = (firstName, lastName, email, password) => async dispatch => {
+    try{
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const body = JSON.stringify({firstName, lastName,   email, password})
+        const response = await axios.post('http://localhost:4001/api/store_manager/sm_register',body,config);
+
+        dispatch({
+            type:REGISTER_SUCCESS,
+            payload:response.data
+        })
+
+        dispatch(loadSM());
+
+    }catch (e) {
+        dispatch({
+            type:REGISTER_FAIL,
+            payload: e
+        })
+    }
+}
+
 export const loginUser = (email, password) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const body = JSON.stringify({email, password})
+
+        const response1 = await axios.post('http://localhost:4001/api/users/login', body, config);
+
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: response1.data
+            })
+
+            dispatch(loadUser());
+    } catch (e) {
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: e
+        })
+    }
+}
+
+export const loginSM = (email, password) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const body = JSON.stringify({email, password})
+        const response2 = await axios.post('http://localhost:4001/api/store_manager/sm_login', body, config);
+
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: response2.data
+        })
+
+        dispatch(loadSM());
+
+    } catch (e) {
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: e
+        })
+    }
+};
+
+
+
+
+
+/*export const loginSM = (email, password) => async dispatch => {
     try{
         const config = {
             headers: {
@@ -62,14 +160,14 @@ export const loginUser = (email, password) => async dispatch => {
             }
         }
         const body = JSON.stringify({email, password})
-        const response = await axios.post('http://localhost:4001/api/users/login',body,config);
+        const response = await axios.post('http://localhost:4001/api/store_manager/sm_login',body,config);
 
         dispatch({
             type:LOGIN_SUCCESS,
             payload:response.data
         })
 
-        dispatch(loadUser());
+        dispatch(loadSM());
 
     }catch (e) {
         dispatch({
@@ -78,7 +176,7 @@ export const loginUser = (email, password) => async dispatch => {
         })
     }
 }
-
+*/
 export const logOut = () => async dispatch =>{
     dispatch({
         type:LOG_OUT,
