@@ -10,6 +10,7 @@ app.use('/api/users', require('./routes/users'));
 const categoryRouter = require('./routes/category');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart')
+const feedbackRouter = require('./routes/feedback')
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -26,7 +27,7 @@ app.use(session({
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/cart',cartRouter);
-
+app.use('/feedback', feedbackRouter);
 app.use(function(req,res,next){
     res.locals.session = req.session;
     next();
