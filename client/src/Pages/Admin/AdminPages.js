@@ -2,15 +2,17 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 
+import RegisterSM from "./add-sm.component";
 import Navbar from "./navbar.component";
 import ProductList from "./product-list.component";
 import EditProduct from "./edit-product.component";
 import CreateProduct from "./create-product.component";
 import CreateCategory from "./create-category.component";
-//import AddSM from "./add-sm.component";
 import Logout from "./AdminLogout";
 import NewOrders from "./new-order.component";
 import CusFeedback from "./Feedback";
+import SMPage from "./SMPage";
+import Login from "./SMLogin";
 
 function App() {
     return (
@@ -25,7 +27,7 @@ function App() {
                     <Route path="/category" component={CreateCategory}/>
                     <Route path="/newOrders" component={NewOrders}/>
                     <Route path="/cusFeedback" component={CusFeedback}/>
-                    {/*<Route path="/addSM" component={AddSM}/>*/}
+                    <Route path="/add_store_manager" component={RegisterSM }/>
                     <Route path="/logout" component={Logout}/>
                 </div>
             </div>

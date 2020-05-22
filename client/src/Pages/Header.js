@@ -62,7 +62,13 @@ const Header = () => {
                             <input className="form-control mr-sm-2" type="search" placeholder="Search"
                                    aria-label="Search"/>
                                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            <a href="/login">Login</a>
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <a href="/login">Login User</a>
+                            </button>
+
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <a href="/store_manager_login">Login Store Manager</a>
+                            </button>
                         </form>
                     </div>
                 </nav>
