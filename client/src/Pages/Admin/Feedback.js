@@ -28,6 +28,17 @@ class Feedback extends Component {
         fetch(url).then(response => response.json())
             .then(json => this.setState({
                 feedbackList: json
+            }, () => {
+
+                let sortedList = this.state.feedbackList;
+
+                sortedList.sort((a, b) => {
+                    return new Date(b.updatedAt) - new Date(a.updatedAt)
+                })
+
+                this.setState({
+                    feedbackList: sortedList
+                })
             }));
     }
 
