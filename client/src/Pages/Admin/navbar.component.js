@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 export default class Navbar extends Component {
     render() {
         return (
-            <div className=''>
+            <div className='navi1'>
                 <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
                     <Link to="/" className="navbar-brand">Dashboard</Link>
                     <div className="collapse navbar-collapse">

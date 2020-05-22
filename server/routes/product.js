@@ -47,6 +47,7 @@ router.route('/add').post((req, res) =>{
     const PBrand = req.body.PBrand;
     const PAmount = req.body.PAmount;
     const PPrice = Number(req.body.PPrice);
+    const PDiscount = 0;
     const PImage = req.body.PImage;
 
 
@@ -57,6 +58,7 @@ router.route('/add').post((req, res) =>{
         PBrand,
         PAmount,
         PPrice,
+        PDiscount,
         PImage,
     });
 
@@ -86,6 +88,7 @@ router.route('/add').post((req, res) =>{
                 product.PBrand =req.body.PBrand;
                 product.PAmount = Number(req.body.PAmount);
                 product.PPrice = Number(req.body.PPrice);
+                product.PDiscount = Number(req.body.PDiscount);
                 product.PImage = req.body.PImage;
 
                 product.save()

@@ -1,8 +1,10 @@
 import React, {Component } from 'react';
 import axios from 'axios';
-import FileUpload from "../utils/FileUpload";
 import {Redirect} from "react-router-dom";
 import FileBase64 from 'react-file-base64';
+import { useAlert } from "react-alert";
+
+
 
 export default class CreateProduct extends Component {
     constructor(props) {
@@ -16,6 +18,8 @@ export default class CreateProduct extends Component {
         this.onChangePPrice = this.onChangePPrice.bind(this);
         //this.onChangePImage = this.onChangePImage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
+        // this.handleClose = this.handleClose.bind(this);
 
         this.state = {
             PName : "",
@@ -26,7 +30,9 @@ export default class CreateProduct extends Component {
             PPrice : 0,
             PImage : "",
             Category : [],
-            baseImage: ""
+            baseImage: "",
+            open: false,
+            sizeEx: false
         }
 
     }
@@ -81,47 +87,67 @@ export default class CreateProduct extends Component {
         });
     }
 
-    // onChangePImage(e){
+    // snake bar
+    // handleClick(){
+    //     console.log("hancle 2");
     //     this.setState({
-    //         PImage: e.target.value
-    //     });
+    //         open: true
+    //     })
     // }
+    // handleClose(event, reason){
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //
+    //     this.setState({
+    //         open: false
+    //     });
+    // };
+
 
     getFiles(files){
         const fileSize = files.size.match(/\d+/)[0];
         console.log("size: "+ fileSize);
 
-        if(fileSize < 50){
+        if(fileSize < 5000){
             console.log("size ok");
             this.setState({
                 PImage: files.base64.toString()
             });
         }else{
-            console.log("not ok");
+            this.setState({
+                sizeEx: true
+            })
+            console.log("not ok"+this.state.sizeEx);
         }
 
     }
 
 
+
     onSubmit(e){
+
         e.preventDefault();
+        console.log("submit: "+this.state.sizeEx)
+        if(this.state.sizeEx === true){
+            alert("Please upload a image size less than 5M");
+        }else {
 
-        const product = {
-            PName : this.state.PName,
-            PDescription : this.state.PDescription,
-            PCategory : this.state.PCategory,
-            PBrand : this.state.PBrand,
-            PAmount : this.state.PAmount,
-            PPrice : this.state.PPrice,
-            PImage : this.state.PImage
-        };
+            const product = {
+                PName: this.state.PName,
+                PDescription: this.state.PDescription,
+                PCategory: this.state.PCategory,
+                PBrand: this.state.PBrand,
+                PAmount: this.state.PAmount,
+                PPrice: this.state.PPrice,
+                PImage: this.state.PImage
+            };
 
-        console.log(product);
+            console.log(product);
 
-        axios.post("http://localhost:4001/product/add", product)
-            .then(res => console.log(res.data));
-
-        {return <Redirect to="/list"/> }
+            axios.post("http://localhost:4001/product/add", product)
+                .then(res => console.log(res.data));
+        }
     }
 
     render() {
@@ -183,11 +209,9 @@ export default class CreateProduct extends Component {
                                onChange={this.onChangePPrice}/>
                     </div>
 
-                    {/*<FileUpload refreshFunction={this.onChangePImage}/>*/}
-
                     <div className="process">
+
                         <FileBase64
-                            required
                             multiple={ false }
                             onDone={ this.getFiles.bind(this) } />
                     </div>
@@ -202,6 +226,8 @@ export default class CreateProduct extends Component {
                     </div>
 
                 </form>
+
+
             </div>
         );
     }

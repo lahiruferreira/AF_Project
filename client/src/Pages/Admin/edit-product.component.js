@@ -13,6 +13,7 @@ export default class EditProduct extends Component {
         this.onChangePBrand = this.onChangePBrand.bind(this);
         this.onChangePAmount = this.onChangePAmount.bind(this);
         this.onChangePPrice = this.onChangePPrice.bind(this);
+        this.onChangePDiscount = this.onChangePDiscount.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -22,6 +23,7 @@ export default class EditProduct extends Component {
             PBrand : "",
             PAmount : 0,
             PPrice : 0,
+            PDiscount: 0,
             PImage : "",
             Category : [],
             baseImage: ""
@@ -41,6 +43,7 @@ export default class EditProduct extends Component {
                     PBrand : response.data.PBrand,
                     PAmount : response.data.PAmount,
                     PPrice : response.data.PPrice,
+                    PDiscount : response.data.PDiscount,
                     PImage : response.data.PImage
                 })
             })
@@ -98,6 +101,12 @@ export default class EditProduct extends Component {
         });
     }
 
+    onChangePDiscount(e){
+        this.setState({
+            PDiscount: e.target.value
+        });
+    }
+
     getFiles(files){
         this.setState({
             PImage: files.base64.toString()
@@ -116,6 +125,7 @@ export default class EditProduct extends Component {
             PBrand : this.state.PBrand,
             PAmount : this.state.PAmount,
             PPrice : this.state.PPrice,
+            PDiscount : this.state.PDiscount,
             PImage : this.state.PImage
         };
 
@@ -179,10 +189,19 @@ export default class EditProduct extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Product Price: </label>
+                        <label>Product Price (.Rs): </label>
                         <input type="text"  className="form-control"
                                value={this.state.PPrice}
                                onChange={this.onChangePPrice}/>
+
+                    </div>
+
+                    <div className="form-group">
+                        <label>Product Discount (%): </label>
+                        <input type="text"  className="form-control"
+                               value={this.state.PDiscount}
+                               onChange={this.onChangePDiscount}/>
+                        <h5>Sale Price : Rs.{this.state.PPrice - (this.state.PDiscount*this.state.PPrice)/100  }/=</h5>
                     </div>
 
                     <div className="process">

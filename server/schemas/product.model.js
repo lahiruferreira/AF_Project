@@ -9,6 +9,7 @@ const productSchema = new Schema({
     PBrand:{type: String, required: true},
     PAmount:{type: Number, required: true},
     PPrice:{type: Number, required: true},
+    PDiscount:{type: Number},
     PImage:{type: String}
 },{
     timestamps: true,

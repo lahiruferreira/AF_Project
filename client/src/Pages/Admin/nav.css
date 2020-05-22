@@ -222,11 +222,16 @@ header {
     text-align: center;
 }
 
+.navi1{
+    padding: 5px;
+    font-size: larger;
+}
+
 .navi a {
     border-bottom: 1px solid #0d172e;
     border-top: 1px solid #0d172e;
     color: #ffffff;
-    display: block;
+    display: inline-list-item;
     font-size: 17px;
     font-weight: 500;
     padding: 28px 20px;

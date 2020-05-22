@@ -10,8 +10,9 @@ const Product = props =>(
         <td>{props.product.PBrand}</td>
         <td>{props.product.PAmount}</td>
         <td>{props.product.PPrice}</td>
+        <td>{props.product.PDiscount}</td>
         <td>{props.product.updatedAt.slice(0,10)}</td>
-        <td>
+        <td width={180}>
            <Link to={"/edit/"+props.product._id}><button className="btn-primary">Update</button></Link>  <button className="btn-danger" onClick={() => {props.deleteProduct(props.product._id)}}>Delete</button>
         </td>
     </tr>
@@ -68,6 +69,7 @@ export default class ProductList extends Component {
                             <th>Brand</th>
                             <th>Amount</th>
                             <th>Price</th>
+                            <th>Discount</th>
                             <th>Updated at</th>
                             <th>Actions</th>
                         </tr>
