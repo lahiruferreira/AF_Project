@@ -17,7 +17,7 @@ const Login = ({ loginUser, isLoggedIn}) => {
         if(email==='admin@gmail.com' && password==='admin'){
             return <Redirect to="/admin"/>
         }else{
-            return <Redirect to="/UserPages"/>
+            return <Redirect to="/CartView"/>
         }
     }
 

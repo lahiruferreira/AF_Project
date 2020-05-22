@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Product = props =>(
     <tr>
-        <td>{props.product.PImage}</td>
+        <td ><img width={200} src={props.product.PImage}/></td>
         <td>{props.product.PName}</td>
         <td>{props.product.PDescription}</td>
         <td>{props.product.PBrand}</td>

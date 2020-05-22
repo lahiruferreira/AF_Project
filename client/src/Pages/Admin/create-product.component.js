@@ -2,6 +2,7 @@ import React, {Component } from 'react';
 import axios from 'axios';
 import FileUpload from "../utils/FileUpload";
 import {Redirect} from "react-router-dom";
+import FileBase64 from 'react-file-base64';
 
 export default class CreateProduct extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class CreateProduct extends Component {
         this.onChangePBrand = this.onChangePBrand.bind(this);
         this.onChangePAmount = this.onChangePAmount.bind(this);
         this.onChangePPrice = this.onChangePPrice.bind(this);
-        this.onChangePImage = this.onChangePImage.bind(this);
+        //this.onChangePImage = this.onChangePImage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -24,9 +25,9 @@ export default class CreateProduct extends Component {
             PAmount : 0,
             PPrice : 0,
             PImage : "",
-            Category : []
+            Category : [],
+            baseImage: ""
         }
-
 
     }
 
@@ -80,12 +81,26 @@ export default class CreateProduct extends Component {
         });
     }
 
-    onChangePImage(e){
-        this.setState({
-            PImage: e.target.value
-        });
-    }
+    // onChangePImage(e){
+    //     this.setState({
+    //         PImage: e.target.value
+    //     });
+    // }
 
+    getFiles(files){
+        const fileSize = files.size.match(/\d+/)[0];
+        console.log("size: "+ fileSize);
+
+        if(fileSize < 50){
+            console.log("size ok");
+            this.setState({
+                PImage: files.base64.toString()
+            });
+        }else{
+            console.log("not ok");
+        }
+
+    }
 
 
     onSubmit(e){
@@ -135,40 +150,52 @@ export default class CreateProduct extends Component {
 
                     <div className="form-group">
                         <label>Product Name: </label>
-                        <input type="text"  className="form-control"
+                        <input type="text" required className="form-control"
                                 value={this.state.PName}
                                 onChange={this.onChangePName}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Description: </label>
-                        <input type="text"  className="form-control"
+                        <textarea type="text" required className="form-control "
                                value={this.state.PDescription}
                                onChange={this.onChangePDescription}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Brand: </label>
-                        <input type="text"  className="form-control"
+                        <input type="text" required className="form-control"
                                value={this.state.PBrand}
                                onChange={this.onChangePBrand}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Amount: </label>
-                        <input type="text" className="form-control"
+                        <input type="text" required className="form-control"
                                value={this.state.PAmount}
                                onChange={this.onChangePAmount}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Price: </label>
-                        <input type="text"  className="form-control"
+                        <input type="text" required className="form-control"
                                value={this.state.PPrice}
                                onChange={this.onChangePPrice}/>
                     </div>
 
-                    <FileUpload refreshFunction={this.onChangePImage}/>
+                    {/*<FileUpload refreshFunction={this.onChangePImage}/>*/}
+
+                    <div className="process">
+                        <FileBase64
+                            required
+                            multiple={ false }
+                            onDone={ this.getFiles.bind(this) } />
+                    </div>
+                        <div className="text-center">
+                            <img className={this.state.PImage ? "img1" : ""} src={this.state.PImage} />
+
+                    </div>
+
 
                     <div className="form-group">
                         <input type="submit" value="Add Product" className="btn btn-primary"/>

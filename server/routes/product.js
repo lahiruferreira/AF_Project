@@ -90,9 +90,9 @@ router.route('/add').post((req, res) =>{
 
                 product.save()
                     .then(() => res.json('Product updated'))
-                    .catch(err => res.status(400).json('Error: ' + err));
+                    .catch(err => res.status(400).json('Error is: ' + err));
             })
-            .catch(err => res.status(400).json('Error:' + err));
+            .catch(err => res.status(400).json('Error is:' + err));
     });
 
 module.exports = router;

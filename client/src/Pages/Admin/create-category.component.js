@@ -54,7 +54,7 @@ export default class CreateCategory extends Component {
 
                 <div className="form-group">
                     <label>Category Description: </label>
-                    <input type="text" required className="form-control"
+                    <textarea type="text" required className="form-control"
                            value={this.state.cdescription}
                            onChange={this.onChangeCDescription}/>
                 </div>
