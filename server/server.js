@@ -18,10 +18,11 @@ app.use(bodyParser.urlencoded({
 // app.use(bodyParser.urlencoded({ limit: "200mb",  extended: true, parameterLimit: 1000000 }));
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/store_manager', require('./routes/storemanagers'));
 const categoryRouter = require('./routes/category');
 const productRouter = require('./routes/product');
-const cartRouter = require('./routes/cart')
-const feedbackRouter = require('./routes/feedback')
+const cartRouter = require('./routes/cart');
+const feedbackRouter = require('./routes/feedback');
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -30,15 +31,17 @@ var mongoose = require('mongoose')
 app.use(session({
     secret: 'secret',
     resave: false,
-    saveUninitialized:false,
-    store: new MongoStore({mongooseConnection:mongoose.connection}),
+    saveUninitialized: false,
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
     cookie:{maxAge:180*60*100}
 }));
 
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
-app.use('/cart',cartRouter);
+app.use('/cart', cartRouter);
 app.use('/feedback', feedbackRouter);
+
+
 app.use(function(req,res,next){
     res.locals.session = req.session;
     next();

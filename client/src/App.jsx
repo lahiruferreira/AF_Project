@@ -9,10 +9,12 @@ import {loadUser} from "./action/auth";
 import {setToken} from "./setToken";
 import UserPages from "./Pages/UserPages";
 import AdminPages from "./Pages/Admin/AdminPages";
-import Header from "./Pages/Header";
+//import Header from "./Pages/Header";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/ContactUs";
 import CartView from "./Pages/CartView";
+import SMLogin from "./Pages/Admin/SMLogin";
+import SMPage from "./Pages/Admin/SMPage";
 
 
 if(localStorage.getItem('token')){
@@ -38,6 +40,8 @@ const App = () => {
                         <Route path="/feedback" component={Feedback}/>
                         <Route path="/contact-us" component={ContactUs}/>
                         <Route path="/CartView" component={CartView}/>
+                        <Route path="/store_manager_login" component={SMLogin}/>
+                        <Route path="/sm_pages" component={SMPage}/>
                         <Route path="/" component={Dashboard}/>
                     </Switch>
                 </Router>
