@@ -9,6 +9,10 @@ let UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    position: {
+        type: String,
+        required:true
+    },
     email: {
        type:String,
        required:true
@@ -20,4 +24,4 @@ let UserSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('user',UserSchema);
+module.exports = mongoose.model('users',UserSchema);

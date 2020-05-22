@@ -20,17 +20,25 @@ router.get (
         }
     }
 )
+// router.route('/id').get((req, res) => {
+//     UserSchema.findById(req.users.id).select('password')
+//         .then(product => res.json(product))
+//         .catch(err => res.status(400).json('Error:' + err));
+// });
+
 router.post(
     '/register',
     [
         check('firstName','First Name is required').not().isEmpty(),
         check('lastName','Last Name is required').not().isEmpty(),
+        //check('position','position is required').not().isEmpty(),
         check('email','Type proper Email').isEmail(),
         check('password','Password is required').not().isEmpty()
     ],
     async (req,res) =>{
         try{
             let { firstName, lastName, email, password } = req.body;
+            const position = "user";
             let user = await UserSchema.findOne({ email });
             const errors = validationResult(req);
             if(!errors.isEmpty()){
@@ -47,6 +55,7 @@ router.post(
             user = new UserSchema({
                 firstName,
                 lastName,
+                position,
                 email,
                 password
             });
@@ -84,9 +93,14 @@ router.post(
     ],
     async (req,res) => {
         try{
+            //status is added here
+
             const {email,password} = req.body;
+
+
             const errors = validationResult(req);
             let user = await UserSchema.findOne({email});
+
 
             if(!errors.isEmpty()){
                 return res.status(401).json({ errors: errors.array()});
@@ -96,6 +110,7 @@ router.post(
             }
 
             let isPasswordMatch = await bcryptjs.compare(password,user.password);
+            //let isStatusCompared = await bcryptjs.compare(status,user.status);//newly added
 
             if(isPasswordMatch){
 

@@ -1,9 +1,13 @@
-import React, {useState} from "react";
-import {loginUser} from "../action/auth";
+import React, {useState,Component} from "react";
+import {getData, loadPosition, loadUser, loadUser1, loginUser, UserPosition} from "../action/auth";
 import { connect } from 'react-redux';
 import { Redirect} from "react-router-dom";
 import '../CSS/login.css';
 import Header from "./Header";
+//import Register from "./Register";
+import axios from 'axios';
+
+
 
 
 const Login = ({ loginUser, isLoggedIn}) => {
@@ -12,16 +16,32 @@ const Login = ({ loginUser, isLoggedIn}) => {
         email:'',
         password:''
     });
+
     let {email, password} = data;
+
     if(isLoggedIn) {
+
         if(email==='admin@gmail.com' && password==='admin'){
             return <Redirect to="/admin"/>
         }else{
-            return <Redirect to="/UserPages"/>
+            return <Redirect to="/CartView"/>
         }
+
+
+        // loadUser1().then(res => this.setState({
+        //     position: res.data.position
+        // }));
+        // console.log("jajaja:"+ this.props.state.position);
+        //
+
+        /*if(status === "admin"){
+            return <Redirect to="/admin"/>
+        }else{*/
+           // return <Redirect to="/UserPages"/>
+       // }
     }
 
-    //first change from sachi
+
     const onChange = e => {
         setData({...data,[e.target.name]: e.target.value})
     };

@@ -13,8 +13,8 @@ import AdminPages from "./Pages/Admin/AdminPages";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/ContactUs";
 import CartView from "./Pages/CartView";
-import SMLogin from "./Pages/Admin/SMLogin";
-import SMPage from "./Pages/Admin/SMPage";
+//import SMLogin from "./Pages/Admin/SMLogin";
+//import SMPage from "./Pages/Admin/SMPage";
 
 
 if(localStorage.getItem('token')){
@@ -34,14 +34,13 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/register" component={Register}/>
-                        <Route path="/login" component={Login}/>
+
                         <Route path="/UserPages" component={UserPages}/>
                         <Route path="/admin" component={AdminPages}/>
                         <Route path="/feedback" component={Feedback}/>
                         <Route path="/contact-us" component={ContactUs}/>
                         <Route path="/CartView" component={CartView}/>
-                        <Route path="/store_manager_login" component={SMLogin}/>
-                        <Route path="/sm_pages" component={SMPage}/>
+                        <Route path="/login" component={Login}/>
                         <Route path="/" component={Dashboard}/>
                     </Switch>
                 </Router>
