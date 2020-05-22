@@ -1,67 +1,66 @@
-import React, {useState} from "react";
-import Header from "../Header";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, {Component} from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Rating from "@material-ui/lab/Rating";
-import Box from "@material-ui/core/Box";
 import {makeStyles} from "@material-ui/core/styles";
+import ReplyModal from "../Components/ReplyModal";
+
 //import {Link} from "react-router-dom";
 
 
-const Feedback = () => {
+class Feedback extends Component {
 
-    let [feedbackList, setFeedbackList] = useState([]);
 
-    let fetchData = () => {
-        const url = "http://localhost:4001/feedback/";
-        fetch(url).then(response => response.json())
-            .then(json => setFeedbackList(json));
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            feedbackList: []
+        }
     }
 
-    const useStyles = makeStyles({
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        const url = "http://localhost:4001/feedback/";
+        fetch(url).then(response => response.json())
+            .then(json => this.setState({
+                feedbackList: json
+            }));
+    }
+
+    useStyles = () => makeStyles({
         root: {
-            width: 200,
+            width: "auto",
             display: 'flex',
             alignItems: 'center',
-        },
+        }
     });
 
-    const labels = {
 
-        1: <>Useless</>,
-
-        2: <>Very&nbsp;Bad</>,
-
-        3: <>Poor</>,
-
-        4: <>Okay</>,
-
-        5: <>Not&nbsp;Bad</>,
-
-        6: <>Good</>,
-
-        7: <>Excellent</>,
-    };
-
-    const classes = useStyles();
+    render() {
 
 
-    return (
-        <>
-            <Header/>
-            <div onLoadStart={fetchData()}>
+        const classes = this.useStyles();
 
-                <div className="pt-0">
-                    <Container>
-                        <Card className="pt-0">
-                            <Card.Header as="h5">Feedback&nbsp;from&nbsp;Users</Card.Header>
-                            <Card.Body>
+        const feedbackList = this.state.feedbackList;
 
-                                {
-                                    feedbackList.map((feedback, index) => (
-                                        <div className="mr-5" key={index}>
+
+        return (
+
+
+            <div className="pt-0">
+                <Container>
+                    <Card className="pt-0">
+                        <Card.Header as="h5">Feedback&nbsp;from&nbsp;Users</Card.Header>
+                        <Card.Body>
+
+                            {
+                                feedbackList.map((feedback, index) => (
+                                    <div key={index}>
+                                        <div className="mr-5">
                                             <Card>
                                                 <Card.Header>
                                                     <div className="float-left">
@@ -72,42 +71,72 @@ const Feedback = () => {
                                                     </div>
                                                 </Card.Header>
                                                 <Card.Body>
-                                                    <Card.Title>{feedback.comment}</Card.Title>
+                                                    <div className="float-left w-75">
 
-                                                    <div className={classes.root}>
-                                                        <Rating
-                                                            size="large"
-                                                            max={7}
-                                                            name="read-only size-large"
-                                                            value={feedback.rating}
-                                                            precision={1}
-                                                            readOnly
-                                                        />
-                                                        <Box ml={2}>{labels[feedback.rating]}</Box>
+                                                        <Card.Title>{feedback.comment}</Card.Title>
+
+                                                        <div className={classes.root}>
+                                                            <Rating
+                                                                size="large"
+                                                                max={7}
+                                                                name="read-only size-large"
+                                                                value={feedback.rating}
+                                                                precision={1}
+                                                                readOnly
+                                                            />
+
+                                                        </div>
+
+                                                        <hr/>
+
+                                                        {
+                                                            feedback.reply !== "" ?
+                                                                <div>
+                                                                    <Card.Subtitle>Reply</Card.Subtitle>
+                                                                    <Card.Text>{feedback.reply}</Card.Text>
+                                                                </div> : <></>
+                                                        }
+
+
                                                     </div>
+                                                    <div className="float-right flex-row w-25 text-center">
+
+                                                        <ReplyModal feedbackObj={feedback}
+                                                                    loadFunction={this.fetchData}/>
+
+                                                    </div>
+
 
                                                 </Card.Body>
                                                 <Card.Footer>
                                                     <div className="float-left">
                                                         Created&nbsp;on&nbsp;{new Date(feedback.createdAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.createdAt).toLocaleTimeString()}
                                                     </div>
-                                                    <div className="float-right">
-                                                        Updated&nbsp;on&nbsp;{new Date(feedback.updatedAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.updatedAt).toLocaleTimeString()}
-                                                    </div>
+                                                    {
+                                                        feedback.reply !== "" ?
+                                                            <div className="float-right">
+                                                                Replied&nbsp;on&nbsp;{new Date(feedback.updatedAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.updatedAt).toLocaleTimeString()}
+                                                            </div> : <></>
+                                                    }
                                                 </Card.Footer>
 
                                             </Card>
                                         </div>
-                                    ))
+                                        <hr/>
+                                    </div>
+                                ))
 
-                                }
-                            </Card.Body>
-                        </Card>
-                    </Container>
-                </div>
+                            }
+                        </Card.Body>
+                    </Card>
+                </Container>
             </div>
-        </>
-    );
+
+
+        );
+    }
+
+
 }
 
 

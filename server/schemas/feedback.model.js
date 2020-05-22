@@ -18,9 +18,13 @@ const feedbackSchema = new Schema({
         type: Number,
         required: true
     },
-    comment:{
+    comment: {
         type: String,
         required: true,
+        trim: true
+    },
+    reply: {
+        type: String,
         trim: true
     },
 },{
