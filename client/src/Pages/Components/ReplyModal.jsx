@@ -10,10 +10,16 @@ class ReplyModal extends Component {
         super(props);
 
         this.state = {
-            feedback: props.feedbackObj,
+            feedback: {},
             show: false,
 
         }
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            feedback: nextProps.feedbackObj
+        })
     }
 
 
