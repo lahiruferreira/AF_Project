@@ -25,7 +25,7 @@ function App() {
                     <Route path="/category" component={CreateCategory}/>
                     <Route path="/newOrders" component={NewOrders}/>
                     <Route path="/cusFeedback" component={CusFeedback}/>
-                    <Route path="/addSM" component={AddSM}/>
+                     <Route path="/addSM" component={AddSM}/>
                     <Route path="/logout" component={Logout}/>
                 </div>
             </div>
