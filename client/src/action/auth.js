@@ -1,17 +1,17 @@
 import {
-    REGISTER_SUCCESS,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    REGISTER_FAIL,
-    LOAD_USER,
     AUTH_ERROR,
+    LOAD_SM,
+    LOAD_USER,
     LOG_OUT,
-    LOAD_SM
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS
 } from '../constants/constants';
 
 import axios from 'axios';
 
-import { setToken } from "../setToken";
+import {setToken} from "../setToken";
 
 
 export const loadUser1 = () => {
@@ -20,10 +20,9 @@ export const loadUser1 = () => {
         setToken(localStorage.getItem('token'));
     }
 
-        const response = axios.get('http://localhost:4001/api/users');
+    const response = axios.get('http://localhost:4001/api/users');
 
-        const position = response;
-        return position;
+    return response;
 
 }
 
@@ -37,7 +36,7 @@ export const loadUser = () => async dispatch => {
         const response = await axios.get('http://localhost:4001/api/users');
 
         const position = response.data.position;
-        console.log(position);
+        //console.log(position);
 
         dispatch({
             type:LOAD_USER,

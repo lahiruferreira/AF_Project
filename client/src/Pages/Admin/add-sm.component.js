@@ -1,25 +1,24 @@
 import React, {useState} from "react";
 
-import { connect} from 'react-redux';
+import {connect} from 'react-redux';
 
-import { registerSM } from "../../action/auth";
-
-import {Redirect} from 'react-router-dom';
+import {registerSM} from "../../action/auth";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 //import '../CSS/registercss/register.css';
 
 //import Header from "./Header";
 
 
-
 const RegisterSM = ({isLoggedIn, registerSM}) => {
 
-    let [data,setData] = useState({
-        firstName:'',
-        lastName:'',
-        position:'',
-        email:'',
-        password:''
+    let [data, setData] = useState({
+        firstName: '',
+        lastName: '',
+        position: '',
+        email: '',
+        password: ''
 
     });
 
@@ -76,13 +75,19 @@ const RegisterSM = ({isLoggedIn, registerSM}) => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputLastName">Position</label>
+                                <Select
+                                    className="form-control"
+                                    name="position"
+                                    labelId="demo-simple-select-label"
+                                    id="exampleInputPosition"
+                                    value={position}
+                                    onChange={(e) => onChange(e)}
+                                >
+                                    <MenuItem value={'sm'}>Store&nbsp;Manager</MenuItem>
+                                    <MenuItem value={'admin'}>Administrator</MenuItem>
 
-                                <input type="text"
-                                       className="form-control"
-                                       id="exampleInputPosition"
-                                       onChange={(e) => onChange(e)}
-                                       value={position}
-                                       name="position"/>
+                                </Select>
+
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Email address</label>

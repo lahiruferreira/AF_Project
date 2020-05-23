@@ -25,23 +25,23 @@ router.get (
 router.post(
     '/sm_register',
     [
-        check('firstName','First Name is required').not().isEmpty(),
-        check('lastName','Last Name is required').not().isEmpty(),
-       //check('position','position is required').not().isEmpty(),
-        check('email','Type proper Email').isEmail(),
-        check('password','Password is required').not().isEmpty()
+        check('firstName', 'First Name is required').not().isEmpty(),
+        check('lastName', 'Last Name is required').not().isEmpty(),
+        check('position', 'position is required').not().isEmpty(),
+        check('email', 'Type proper Email').isEmail(),
+        check('password', 'Password is required').not().isEmpty()
     ],
-    async (req,res) =>{
-        try{
-            let { firstName, lastName, email, password } = req.body;
-            const position = "sm";
-            let store_manager= await SMSchema.findOne({ email });
+    async (req,res) => {
+        try {
+            let {firstName, lastName, position, email, password} = req.body;
+            // const position = "sm";
+            let store_manager = await SMSchema.findOne({email});
             const errors = validationResult(req);
-            if(!errors.isEmpty()){
+            if (!errors.isEmpty()) {
                 return res.status(401).json({errors: errors.array()});
             }
 
-            if(store_manager){
+            if (store_manager) {
                 return res.status(401).json({alert: "There is a already user who uses this email"})//msg tibbe alert kala
             }
 
