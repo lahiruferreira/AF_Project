@@ -154,7 +154,7 @@ export default class CreateProduct extends Component {
 
         return (
             <div>
-                <h3>Create New Product</h3>
+                <h1>Create New Product</h1><br/>
                 <form onSubmit={this.onSubmit} >
                     <div className="form-group">
                         <label>Product Category: </label>

@@ -59,7 +59,7 @@ export default class ProductList extends Component {
     render() {
         return (
             <div>
-                <h1>Products Table</h1>
+                <h1>Products Table</h1><br/>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
