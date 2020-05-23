@@ -25,18 +25,23 @@ const RegisterSM = ({isLoggedIn, registerSM}) => {
     let {firstName, lastName, position, email, password} = data;
 
     const onChange = e => {
-
         setData({...data,[e.target.name]: e.target.value})
-
+        console.log("setdata: "+ e.target.name);
     }
 
     const submitData = () => {
-        if(firstName === '' && lastName === '' && position === '' && email === '' && password ==='') {
+
+        if(firstName === '' || lastName === '' || position === '' || email === '' || password ==='') {
             return alert("All the Values are Required");
         }else{
-
             registerSM(firstName,lastName,position,email,password);
-    
+            setData({
+                firstName: '',
+                lastName: '',
+                position: '',
+                email: '',
+                password: ''
+            })
         }
     }
 

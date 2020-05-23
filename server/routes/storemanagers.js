@@ -8,6 +8,7 @@ const { check, validationResult} = require('express-validator');
 const SMSchema = require('../schemas/User');
 const config = require('config');
 const auth = require('../middleware/auth');
+var nodemailer = require('nodemailer');
 
 router.get (
     '/',
@@ -36,6 +37,7 @@ router.post(
             let {firstName, lastName, position, email, password} = req.body;
             // const position = "sm";
             let store_manager = await SMSchema.findOne({email});
+
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(401).json({errors: errors.array()});
@@ -72,6 +74,33 @@ router.post(
                     res.json({ token });
                 }
             )
+
+            var transporter = nodemailer.createTransport({
+
+                service: 'Gmail',
+                auth: {
+                    user: 'applicationframework564@gmail.com',
+                    pass: 'Vernon123'
+                }
+            });
+
+            var mailOptions = {
+
+                from: 'applicationframework564@gmail.com',
+                to: email,
+                subject: 'Store Manager',
+                text: 'Admin Sent this Message to Store Managers when Registration'
+            };
+
+
+
+            await transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
 
            //sendEmail(to,name);
 

@@ -31,7 +31,15 @@
     margin: 10px;
 }
 .nav-header{
-    padding-top: 9vh;
+    padding-top: 0;
     margin-left: 205px;
     padding-right: 5px;
+}
+
+.login-user-anchor{
+    color: darkgreen;
+}
+
+.login-user-anchor:hover{
+    color: white;
 }

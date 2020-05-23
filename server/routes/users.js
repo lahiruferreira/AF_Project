@@ -106,7 +106,7 @@ router.post(
                 return res.status(401).json({ errors: errors.array()});
             }
             if(!user){
-                return res.status(401).json({msg: "There is no user with this email"});
+                return res.status(401).json({alert: "There is no user with this email"});
             }
 
             let isPasswordMatch = await bcryptjs.compare(password,user.password);
