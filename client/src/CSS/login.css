@@ -1,5 +1,5 @@
 .whole-page{
-    padding: 1%;
+    height: 75vh;
     margin: 10vh;
     display: flex;
     background-color: lightseagreen;
@@ -51,4 +51,18 @@
     margin-top: 3vh;
     margin-left: auto;
     color: black;
+}
+
+.register-anchor{
+    color:white;
+}
+
+.register-anchor:hover{
+    color:white;
+
+}
+
+.login-btns{
+    margin-top: 50px;
+    padding: 10px;
 }

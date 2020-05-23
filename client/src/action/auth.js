@@ -159,7 +159,7 @@ export const loginUser = (email, password) => async dispatch => {
         //console.log("position: "+response1.data[1]);
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: response1.data
+            payload: response1.data,
         })
 
         dispatch(loadUser());
