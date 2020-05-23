@@ -1,9 +1,13 @@
-import React, {useState} from "react";
-import {loginUser} from "../action/auth";
+import React, {useState, Component, useRef, useEffect} from "react";
+import {getData, getUserPos, loadPosition, loadUser, loadUser1, loginUser, UserPosition} from "../action/auth";
 import { connect } from 'react-redux';
 import { Redirect} from "react-router-dom";
 import '../CSS/login.css';
 import Header from "./Header";
+//import Register from "./Register";
+import axios from 'axios';
+
+
 
 
 const Login = ({ loginUser, isLoggedIn}) => {
@@ -12,23 +16,43 @@ const Login = ({ loginUser, isLoggedIn}) => {
         email:'',
         password:''
     });
+
+    let [user, setUser] = useState({
+        position:''
+    })
+
+    // let {position} = user;
+
     let {email, password} = data;
+
+
     if(isLoggedIn) {
+
+        // loadUser1(). then(res=>
+        //
+        // )
+
+
         if(email==='admin@gmail.com' && password==='admin'){
+            return <Redirect to="/admin"/>
+        } else if(email==='sm@gmail.com' && password==='sm'){
             return <Redirect to="/admin"/>
         }else{
             return <Redirect to="/CartView"/>
         }
+
     }
 
-    //first change from sachi
+
     const onChange = e => {
         setData({...data,[e.target.name]: e.target.value})
     };
 
     const submitData = () => {
+
         loginUser(email,password);
     };
+
 
     return (
         <div>

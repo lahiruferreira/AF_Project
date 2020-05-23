@@ -66,9 +66,6 @@ const Header = () => {
                                 <a href="/login">Login User</a>
                             </button>
 
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                <a href="/store_manager_login">Login Store Manager</a>
-                            </button>
                         </form>
                     </div>
                 </nav>

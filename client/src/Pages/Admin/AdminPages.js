@@ -12,7 +12,7 @@ import Logout from "./AdminLogout";
 import NewOrders from "./new-order.component";
 import CusFeedback from "./Feedback";
 import SMPage from "./SMPage";
-import Login from "./SMLogin";
+//import Login from "./SMLogin";
 
 function App() {
     return (
@@ -27,7 +27,8 @@ function App() {
                     <Route path="/category" component={CreateCategory}/>
                     <Route path="/newOrders" component={NewOrders}/>
                     <Route path="/cusFeedback" component={CusFeedback}/>
-                    <Route path="/add_store_manager" component={RegisterSM }/>
+                    <Route path="/sm_pages" component={SMPage}/>
+                    <Route path="/sm_register" component={RegisterSM }/>
                     <Route path="/logout" component={Logout}/>
                 </div>
             </div>

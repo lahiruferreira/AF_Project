@@ -5,7 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const { check, validationResult} = require('express-validator');
-const SMSchema = require('../schemas/StoreManagers');
+const SMSchema = require('../schemas/User');
 const config = require('config');
 const auth = require('../middleware/auth');
 
@@ -27,12 +27,14 @@ router.post(
     [
         check('firstName','First Name is required').not().isEmpty(),
         check('lastName','Last Name is required').not().isEmpty(),
+       //check('position','position is required').not().isEmpty(),
         check('email','Type proper Email').isEmail(),
         check('password','Password is required').not().isEmpty()
     ],
     async (req,res) =>{
         try{
             let { firstName, lastName, email, password } = req.body;
+            const position = "sm";
             let store_manager= await SMSchema.findOne({ email });
             const errors = validationResult(req);
             if(!errors.isEmpty()){
@@ -49,6 +51,7 @@ router.post(
             store_manager = new SMSchema({
                 firstName,
                 lastName,
+                position,
                 email,
                 password
             });
@@ -83,7 +86,7 @@ router.post(
 router.post(
     '/sm_login',
     [
-        check('email', 'Type Proper Email').isEmail(),//mathana tibbe user is required pahala eke password is required
+        check('email', 'Type Proper Email').isEmail(),
         check('password','Password is required').not().isEmpty()
     ],
     async (req,res) => {
