@@ -1,5 +1,5 @@
-import React, {useState,Component} from "react";
-import {getData, loadPosition, loadUser, loadUser1, loginUser, UserPosition} from "../action/auth";
+import React, {useState, Component, useRef, useEffect} from "react";
+import {getData, getUserPos, loadPosition, loadUser, loadUser1, loginUser, UserPosition} from "../action/auth";
 import { connect } from 'react-redux';
 import { Redirect} from "react-router-dom";
 import '../CSS/login.css';
@@ -17,28 +17,30 @@ const Login = ({ loginUser, isLoggedIn}) => {
         password:''
     });
 
+    let [user, setUser] = useState({
+        position:''
+    })
+
+    // let {position} = user;
+
     let {email, password} = data;
+
 
     if(isLoggedIn) {
 
+        // loadUser1(). then(res=>
+        //
+        // )
+
+
         if(email==='admin@gmail.com' && password==='admin'){
+            return <Redirect to="/admin"/>
+        } else if(email==='sm@gmail.com' && password==='sm'){
             return <Redirect to="/admin"/>
         }else{
             return <Redirect to="/CartView"/>
         }
 
-
-        // loadUser1().then(res => this.setState({
-        //     position: res.data.position
-        // }));
-        // console.log("jajaja:"+ this.props.state.position);
-        //
-
-        /*if(status === "admin"){
-            return <Redirect to="/admin"/>
-        }else{*/
-           // return <Redirect to="/UserPages"/>
-       // }
     }
 
 
@@ -47,8 +49,10 @@ const Login = ({ loginUser, isLoggedIn}) => {
     };
 
     const submitData = () => {
+
         loginUser(email,password);
     };
+
 
     return (
         <div>
