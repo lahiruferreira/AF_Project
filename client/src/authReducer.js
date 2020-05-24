@@ -6,7 +6,7 @@ import {
     LOAD_USER,
     AUTH_ERROR, LOG_OUT,
     ADD_TO_CART_USER
-} from '../constants/constants';
+} from './constants/constants';
 
 const initialState = {
     token: localStorage.getItem('token'),
