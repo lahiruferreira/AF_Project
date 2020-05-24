@@ -79,7 +79,7 @@ const Header = () => {
                                    aria-label="Search"/>
                                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                <a href="/login">Login User</a>
+                                <a className="login-user-anchor" href="/login">Login User</a>
                             </button>
 
                         </form>

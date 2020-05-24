@@ -34,10 +34,11 @@ const Register = ({isLoggedIn, registerUser}) => {
 
 
     const submitData = () => {
-        if(firstName === '' && lastName === '' && email === ''&& password ==='') {
+        if(firstName === '' || lastName === '' || email === '' || password ==='') {
             return alert("All the Values are Required");
         }else{
             registerUser(firstName,lastName,email,password);
+
         }
 
     }
