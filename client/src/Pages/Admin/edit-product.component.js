@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import axios from 'axios';
-import FileUpload from "../utils/FileUpload";
+import Swal from 'sweetalert2'
 import FileBase64 from "react-file-base64";
 
 export default class EditProduct extends Component {
@@ -113,7 +113,15 @@ export default class EditProduct extends Component {
         });
     }
 
-
+    ProductSavedAlert(){
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Product updated successfully',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
 
     onSubmit(e){
         e.preventDefault();
@@ -132,7 +140,10 @@ export default class EditProduct extends Component {
         console.log(product);
 
         axios.post("http://localhost:4001/product/update/"+this.props.match.params.id, product)
-            .then(res => console.log(res.data));
+            .then(res =>{
+                console.log(res.data);
+                this.ProductSavedAlert();
+            });
 
     }
 

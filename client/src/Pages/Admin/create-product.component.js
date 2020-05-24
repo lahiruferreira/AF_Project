@@ -2,7 +2,7 @@ import React, {Component } from 'react';
 import axios from 'axios';
 import {Redirect} from "react-router-dom";
 import FileBase64 from 'react-file-base64';
-import { useAlert } from "react-alert";
+import Swal from 'sweetalert2'
 
 
 
@@ -87,23 +87,6 @@ export default class CreateProduct extends Component {
         });
     }
 
-    // snake bar
-    // handleClick(){
-    //     console.log("hancle 2");
-    //     this.setState({
-    //         open: true
-    //     })
-    // }
-    // handleClose(event, reason){
-    //     if (reason === 'clickaway') {
-    //         return;
-    //     }
-    //
-    //     this.setState({
-    //         open: false
-    //     });
-    // };
-
 
     getFiles(files){
         const fileSize = files.size.match(/\d+/)[0];
@@ -123,30 +106,63 @@ export default class CreateProduct extends Component {
 
     }
 
+    confirmAlart(){
+        Swal.fire(
+            'Good job!',
+            'New Product Successfully Added!',
+            'success'
+        )
+    }
 
+    filesizeAlart(){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Image is too large!',
+            text: 'Please insert an image size less than 5mb'
+        })
+    }
+
+    filemissAlart(){
+        Swal.fire({
+            icon: 'question',
+            title: 'Oppss! something missing',
+            text: 'Please insert the image!'
+        })
+    }
 
     onSubmit(e){
 
         e.preventDefault();
-        console.log("submit: "+this.state.sizeEx)
+        console.log("file size: "+this.state.sizeEx)
         if(this.state.sizeEx === true){
-            alert("Please upload a image size less than 5M");
+            this.filesizeAlart();
+            this.setState({
+                sizeEx: false
+            })
         }else {
+            console.log("image :"+ this.state.PImage)
+            if(this.state.PImage !== ""){
+                const product = {
+                    PName: this.state.PName,
+                    PDescription: this.state.PDescription,
+                    PCategory: this.state.PCategory,
+                    PBrand: this.state.PBrand,
+                    PAmount: this.state.PAmount,
+                    PPrice: this.state.PPrice,
+                    PImage: this.state.PImage
+                };
 
-            const product = {
-                PName: this.state.PName,
-                PDescription: this.state.PDescription,
-                PCategory: this.state.PCategory,
-                PBrand: this.state.PBrand,
-                PAmount: this.state.PAmount,
-                PPrice: this.state.PPrice,
-                PImage: this.state.PImage
-            };
+                console.log(product);
 
-            console.log(product);
+                axios.post("http://localhost:4001/product/add", product)
+                    .then(res => {
+                        console.log(res.data);
+                        this.confirmAlart();
+                    });
+            }else{
+                this.filemissAlart();
+            }
 
-            axios.post("http://localhost:4001/product/add", product)
-                .then(res => console.log(res.data));
         }
     }
 
