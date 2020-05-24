@@ -16,11 +16,8 @@ const Header = () => {
             function catClick(){
                 axios.get("http://localhost:4001/category/")
                     .then(response => {
-                        if (response.data.length >0){
                             setPosts(response.data.map(category => category.cname));
                             console.log("ss:"+posts)
-                        }
-
                     })
             }
         }, [])
@@ -52,14 +49,15 @@ const Header = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle" href="/allProduct" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Category
                                 </a>
 
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {posts.map((post,index) =>
-                                    <a key={index} className="dropdown-item">{post.cname}</a>
+                                    <div key={index} className="dropdown-item">{post.cname}</div>
                                     )}
+                                    <a href="/allProduct" className="dropdown-item">All Product</a>
 
                                 </div>
                             </li>
