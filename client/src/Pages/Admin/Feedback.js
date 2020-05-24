@@ -69,7 +69,20 @@ class Feedback extends Component {
                 this.setState({
                     feedbackList: sortedList
                 })
-            }));
+            })).catch(() => {
+            this.setState({
+                showToast: true,
+                toastMessage: "Unexpected Issue Occurred...",
+                toastType: 'Error',
+                typeColor: "danger"
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    showToast: false
+                })
+            }, 5000);
+        });
     }
 
     useStyles = () => makeStyles({
@@ -117,17 +130,23 @@ class Feedback extends Component {
                         typeColor: "danger"
                     });
                 }
-
-                setTimeout(() => {
-                    this.setState({
-                        showToast: false
-                    })
-                }, 5000);
             })
 
 
+        }).catch(() => {
+            this.setState({
+                showToast: true,
+                toastMessage: "Unexpected Issue Occurred...",
+                toastType: 'Error',
+                typeColor: "danger"
+            });
         });
 
+        setTimeout(() => {
+            this.setState({
+                showToast: false
+            })
+        }, 5000);
     }
 
 
