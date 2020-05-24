@@ -157,6 +157,7 @@ export const loginUser = (email, password) => async dispatch => {
         const response1 = await axios.post('http://localhost:4001/api/users/login', body, config);
             //.then(res => console.log(res.data));
         //console.log("position: "+response1.data[1]);
+
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response1.data,
