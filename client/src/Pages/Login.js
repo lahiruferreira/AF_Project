@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {loadUser, loadUser1, loginUser} from "../action/auth";
+import {loadUser1, loginUser} from "../action/auth";
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 import '../CSS/login.css';
@@ -96,7 +96,9 @@ const Login = ({loginUser, isLoggedIn}) => {
                                    name="password"/>
                         </div>
 
-                        <a href="/register">Register</a>
+                        <button type="button" className="btn btn-info">
+                            <a className="register-anchor" href="/register">Register</a>
+                        </button>
 
                         <button type="submit"
                                 className="btn btn-primary"
