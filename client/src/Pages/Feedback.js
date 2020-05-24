@@ -7,6 +7,7 @@ import Rating from "@material-ui/lab/Rating";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import ToastMessage from "./Components/ToastMessage";
 
 
 class Feedback extends Component {
@@ -40,12 +41,22 @@ class Feedback extends Component {
                 reply: ""
             },
             feedbackList: [],
-            hover: -1
+            hover: -1,
+            showToast: false,
+            toastMessage: '',
+            toastType: 'Error',
+            typeColor: 'red'
         }
     }
 
     componentDidMount() {
         this.fetchData();
+    }
+
+    setShow = (val) => {
+        this.setState({
+            showToast: val
+        })
     }
 
     fetchData = () => {
@@ -186,11 +197,6 @@ class Feedback extends Component {
         }).then((r) => {
 
             if (r.status === 200) {
-                alert("Feedback Posted!!");
-                document.getElementById('name').value = '';
-                document.getElementById('emailId').value = '';
-                document.getElementById('comment').value = '';
-                this.fetchData();
                 this.setState({
 
                     feedback: {
@@ -199,12 +205,34 @@ class Feedback extends Component {
                         rating: 1,
                         comment: "",
                         reply: ""
-                    }
+                    },
+                    showToast: true,
+                    toastMessage: 'Feedback Posted Successfully!!!',
+                    toastType: 'Information',
+                    typeColor: "success"
 
-                })
+
+                });
+                document.getElementById('name').value = '';
+                document.getElementById('emailId').value = '';
+                document.getElementById('comment').value = '';
+                this.fetchData();
+
             } else {
-                alert("Error " + r.status + " Occurred..")
+                this.setState({
+                    showToast: true,
+                    toastMessage: "Unexpected Response Status " + r.status + " Occurred...",
+                    toastType: 'Error',
+                    typeColor: "danger"
+                });
+
             }
+
+            setTimeout(() => {
+                this.setState({
+                    showToast: false
+                })
+            }, 5000);
         })
 
     }
@@ -216,6 +244,9 @@ class Feedback extends Component {
         return (
             <>
                 <Header/>
+                <ToastMessage tId={"general"} showFunction={this.setShow} showToast={this.state.showToast}
+                              message={this.state.toastMessage} messageType={this.state.toastType}
+                              statusColor={this.state.typeColor}/>
                 <div className="pt-0">
                     <Container>
                         <Card className="pt-0">

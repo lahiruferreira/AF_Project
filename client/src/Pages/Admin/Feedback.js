@@ -5,6 +5,7 @@ import Rating from "@material-ui/lab/Rating";
 import {makeStyles} from "@material-ui/core/styles";
 import ReplyModal from "../Components/ReplyModal";
 import Box from "@material-ui/core/Box";
+import ToastMessage from "../Components/ToastMessage";
 
 //import {Link} from "react-router-dom";
 
@@ -16,7 +17,12 @@ class Feedback extends Component {
         super(props);
 
         this.state = {
-            feedbackList: []
+            feedbackList: [],
+            showModale: false,
+            showToast: false,
+            toastMessage: '',
+            toastType: 'Error',
+            typeColor: 'red'
         }
     }
 
@@ -41,6 +47,12 @@ class Feedback extends Component {
         7: 'Excellent',
     };
 
+    setShow = (val) => {
+        this.setState({
+            showToast: val
+        })
+    }
+
     fetchData = () => {
         const url = "http://localhost:4001/feedback/";
         fetch(url).then(response => response.json())
@@ -51,7 +63,7 @@ class Feedback extends Component {
                 let sortedList = this.state.feedbackList;
 
                 sortedList.sort((a, b) => {
-                    return new Date(b.updatedAt) - new Date(a.updatedAt)
+                    return new Date(b.createdAt) - new Date(a.createdAt)
                 })
 
                 this.setState({
@@ -68,6 +80,56 @@ class Feedback extends Component {
         }
     });
 
+    onReplySubmit = (event, obj) => {
+
+        event.preventDefault();
+
+        console.log(obj.feedback)
+
+
+        fetch("http://localhost:4001/feedback/" + obj.feedback._id, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(obj.feedback)
+        }).then((r) => {
+
+            this.setState({
+                showModale: false
+            }, () => {
+
+                if (r.status === 200) {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: 'Replied to the Feedback!!!',
+                        toastType: 'Information',
+                        typeColor: "success"
+                    })
+
+                    this.fetchData();
+                } else {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: "Unexpected Response Status " + r.status + " Occurred...",
+                        toastType: 'Error',
+                        typeColor: "danger"
+                    });
+                }
+
+                setTimeout(() => {
+                    this.setState({
+                        showToast: false
+                    })
+                }, 5000);
+            })
+
+
+        });
+
+    }
+
 
     render() {
 
@@ -81,6 +143,9 @@ class Feedback extends Component {
 
 
             <div className="pt-0">
+                <ToastMessage tId={"admin"} showFunction={this.setShow} showToast={this.state.showToast}
+                              message={this.state.toastMessage} messageType={this.state.toastType}
+                              statusColor={this.state.typeColor}/>
                 <Container>
                     <Card className="pt-0">
                         <Card.Header as="h5">Feedback&nbsp;from&nbsp;Users</Card.Header>
@@ -131,8 +196,9 @@ class Feedback extends Component {
                                                     </div>
                                                     <div className="float-right flex-row w-25 text-center">
 
-                                                        <ReplyModal feedbackObj={feedback}
-                                                                    loadFunction={this.fetchData}/>
+                                                        <ReplyModal showModal={this.state.showModale}
+                                                                    onReplySubmit={this.onReplySubmit}
+                                                                    feedbackObj={feedback}/>
 
                                                     </div>
 

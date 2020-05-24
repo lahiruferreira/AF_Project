@@ -18,6 +18,7 @@ class ReplyModal extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
+            show: nextProps.showModale,
             feedback: nextProps.feedbackObj
         })
     }
@@ -46,38 +47,7 @@ class ReplyModal extends Component {
         });
     }
 
-    onReplySubmit(event) {
 
-        event.preventDefault();
-
-        console.log(this.state.feedback)
-
-
-        fetch("http://localhost:4001/feedback/" + this.state.feedback._id, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state.feedback)
-        }).then((r) => {
-
-            this.setState({
-                show: false
-            }, () => {
-
-                if (r.status === 200) {
-                    alert("Replied to the Feedback!!");
-                    this.props.loadFunction();
-                } else {
-                    alert("Error " + r.status + " Occurred..")
-                }
-            })
-
-
-        });
-
-    }
 
     render() {
         return (
@@ -89,7 +59,7 @@ class ReplyModal extends Component {
                 </Button>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Form onSubmit={(event) => this.onReplySubmit(event)}>
+                    <Form onSubmit={(event) => this.props.onReplySubmit(event, this.state)}>
                         <Modal.Header closeButton>
                             <Modal.Title>Reply&nbsp;to&nbsp;Feedback</Modal.Title>
                         </Modal.Header>
