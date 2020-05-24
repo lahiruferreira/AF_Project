@@ -92,8 +92,8 @@ router.route('/add').post((req, res) =>{
                 product.PImage = req.body.PImage;
 
                 product.save()
-                    .then(() => res.json('Product updated'))
-                    .catch(err => res.status(400).json('Error is: ' + err));
+                    .then(() => res.json('Product updated'));
+
             })
             .catch(err => res.status(400).json('Error is:' + err));
     });

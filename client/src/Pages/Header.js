@@ -1,19 +1,40 @@
-import React from "react";
+import React,{useState, useEffect } from "react";
 import '../CSS/header.css';
 import logo from '../Images/logo.jpg';
+import axios from "axios";
+
+
 
 
 const Header = () => {
+
+    const [posts, setPosts] = useState([]);
+
+
+        useEffect(() => {
+
+            function catClick(){
+                axios.get("http://localhost:4001/category/")
+                    .then(response => {
+                            setPosts(response.data.map(category => category.cname));
+                            console.log("ss:"+posts)
+                    })
+            }
+        }, [])
+
+
+
+
     return (
         <div className="container-parent2">
 
                 <div className="container-child">
-                    <img src={logo}
+                    <img className="Mainlogo" src={logo}
                         alt="logo"/>
                 </div>
 
             <div className="nav-header">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-xl navbar-dark bg-dark">
                     <a className="navbar-brand" href="/">Titans Online Fashion Store</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,21 +49,16 @@ const Header = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle" href="/allProduct" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Category
                                 </a>
+
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a className="dropdown-item" href="/">Trousers</a>
-                                    <a className="dropdown-item" href="/">T-Shirt</a>
-                                    <a className="dropdown-item" href="/">Shorts</a>
-                                    <a className="dropdown-item" href="/">Shoes</a>
-                                    <div className="dropdown-divider"/>
-                                    <a className="dropdown-item" href="/">Cosmetics</a>
-                                    <a className="dropdown-item" href="/">Blouses</a>
-                                    <a className="dropdown-item" href="/">Frocks</a>
-                                    <a className="dropdown-item" href="/">Skirts</a>
-                                    <a className="dropdown-item" href="/">Trouser-Female</a>
-                                    <a className="dropdown-item" href="/">Shoes</a>
+                                    {posts.map((post,index) =>
+                                    <div key={index} className="dropdown-item">{post.cname}</div>
+                                    )}
+                                    <a href="/allProduct" className="dropdown-item">All Product</a>
+
                                 </div>
                             </li>
 
@@ -66,9 +82,6 @@ const Header = () => {
                                 <a href="/login">Login User</a>
                             </button>
 
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                <a href="/store_manager_login">Login Store Manager</a>
-                            </button>
                         </form>
                     </div>
                 </nav>

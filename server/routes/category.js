@@ -29,7 +29,7 @@ router.route('/:id').get((req,res) =>{
 
 router.route('/:id').delete((req,res) =>{
     Category.findByIdAndDelete(req.params.id)
-        .then(() => req.json('Category Deleted!'))
+        .then(() => res.json('Category Deleted!'))
         .catch(err => res.status(400).json('Error'+err));
 });
 
