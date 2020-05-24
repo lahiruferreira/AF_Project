@@ -19,6 +19,7 @@ router.get (
             return res.status(500).json({msg:"server Error..."});
         }
     }
+
 )
 // router.route('/id').get((req, res) => {
 //     UserSchema.findById(req.users.id).select('password')
@@ -88,7 +89,7 @@ router.post(
 router.post(
     '/login',
     [
-        check('email', 'Type Proper Email').isEmail(),//mathana tibbe user is required pahala eke password is required
+        check('email', 'Type Proper Email').isEmail(),
         check('password','Password is required').not().isEmpty()
     ],
     async (req,res) => {

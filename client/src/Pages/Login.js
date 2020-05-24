@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {loadUser1, loginUser} from "../action/auth";
+import {loadUser, loadUser1, loginUser} from "../action/auth";
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 import '../CSS/login.css';
