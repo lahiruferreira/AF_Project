@@ -1,9 +1,7 @@
-import React,{useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import '../CSS/header.css';
 import logo from '../Images/logo.jpg';
 import axios from "axios";
-
-
 
 
 const Header = () => {
@@ -66,7 +64,8 @@ const Header = () => {
                                 <a className="nav-link" href="/feedback">Feedback</a>
                             </li>
                             <li className="nav-item active">
-                                <a className="nav-link" href="/contact-us">Contact-us <span className="sr-only">(current)</span></a>
+                                <a className="nav-link" href="/contact-us">About-us <span
+                                    className="sr-only">(current)</span></a>
                             </li>
 
 
