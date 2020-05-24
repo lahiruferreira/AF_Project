@@ -5,7 +5,7 @@ import {
     REGISTER_FAIL,
     LOAD_USER,
     AUTH_ERROR,
-    LOG_OUT, LOAD_SM
+    LOG_OUT, LOAD_SM, ADD_TO_CART_USER
 } from '../constants/constants';
 import axios from 'axios';
 import { setToken } from "../setToken";
@@ -147,6 +147,17 @@ export const loginSM = (email, password) => async dispatch => {
         })
     }
 };
+
+export function addToCart(_id){
+    const request = axios.get(`http://localhost:4001/api/cart/addToCart?productId=${_id}`)
+        .then(response => response.data);
+
+    return{
+        type: ADD_TO_CART_USER,
+        playload:request
+    }
+}
+
 
 
 

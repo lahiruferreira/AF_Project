@@ -15,6 +15,7 @@ import ContactUs from "./Pages/ContactUs";
 import CartView from "./Pages/CartView";
 import SMLogin from "./Pages/Admin/SMLogin";
 import SMPage from "./Pages/Admin/SMPage";
+import LandingPage from "./Pages/LandingPage"
 
 
 if(localStorage.getItem('token')){
@@ -40,6 +41,7 @@ const App = () => {
                         <Route path="/feedback" component={Feedback}/>
                         <Route path="/contact-us" component={ContactUs}/>
                         <Route path="/CartView" component={CartView}/>
+                        <Route path="/LandingPage" component={LandingPage}/>
                         <Route path="/store_manager_login" component={SMLogin}/>
                         <Route path="/sm_pages" component={SMPage}/>
                         <Route path="/" component={Dashboard}/>

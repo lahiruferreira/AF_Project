@@ -3,8 +3,10 @@ const app = express();
 const cors = require('cors');
 const connectToDatabase = require('./config/connectToDatabase');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 app.use(cors());
+app.use(cookieParser())
 
 app.use(bodyParser.json({limit: '50mb'}) );
 app.use(bodyParser.urlencoded({
@@ -19,6 +21,8 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/store_manager', require('./routes/storemanagers'));
+app.use('/api/cart', require('./routes/cart'));
+
 const categoryRouter = require('./routes/category');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');

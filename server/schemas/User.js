@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 let UserSchema = mongoose.Schema({
@@ -16,8 +18,46 @@ let UserSchema = mongoose.Schema({
    password: {
       type: String,
       required: true
-   }
+   },
+    cart : {
+        type: Array,
+        default:[1]
+    },
+    history:{
+        type: Array,
+        default: []
+    },
+    wishList:{
+        type:Array,
+        default:[]
+    }
 });
 
+UserSchema.statics.findByToken = function (token, cb) {
+    var user = this;
+
+    jwt.verify(token, 'secret', function (err, decode) {
+        user.findOne({ "_id": decode, "token": token }, function (err, user) {
+            if (err) return cb(err);
+            cb(null, user);
+        })
+    })
+}
+
+UserSchema.methods.generateToken = function (cb) {
+    var user = this;
+    var token = jwt.sign(user._id.toHexString(), 'secret')
+    var oneHour = moment().add(1, 'hour').valueOf();
+
+    user.tokenExp = oneHour;
+    user.token = token;
+    user.save(function (err, user) {
+        if (err) return cb(err)
+        cb(null, user);
+    })
+}
 
 module.exports = mongoose.model('user',UserSchema);
+/*
+const User = mongoose.model('User', UserSchema);
+module.exports = { User }*/
