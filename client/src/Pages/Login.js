@@ -43,7 +43,7 @@ const Login = ({loginUser, isLoggedIn}) => {
             case 'sm':
                 return <Redirect to="/admin"/>
             case 'user':
-                return <Redirect to="/CartView"/>
+                return <Redirect to="/LandingPage"/>
         }
 
 
