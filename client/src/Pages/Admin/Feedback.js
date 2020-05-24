@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Rating from "@material-ui/lab/Rating";
 import {makeStyles} from "@material-ui/core/styles";
 import ReplyModal from "../Components/ReplyModal";
+import Box from "@material-ui/core/Box";
 
 //import {Link} from "react-router-dom";
 
@@ -22,6 +23,23 @@ class Feedback extends Component {
     componentDidMount() {
         this.fetchData();
     }
+
+    labels = {
+
+        1: 'Useless',
+
+        2: 'Very Bad',
+
+        3: 'Poor',
+
+        4: 'Okay',
+
+        5: 'Not Bad',
+
+        6: 'Good',
+
+        7: 'Excellent',
+    };
 
     fetchData = () => {
         const url = "http://localhost:4001/feedback/";
@@ -95,7 +113,8 @@ class Feedback extends Component {
                                                                 precision={1}
                                                                 readOnly
                                                             />
-
+                                                            <Box ml={0.5}
+                                                                 className="text-muted">{this.labels[feedback.rating]}</Box>
                                                         </div>
 
                                                         <hr/>

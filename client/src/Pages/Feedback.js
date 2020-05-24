@@ -13,19 +13,19 @@ class Feedback extends Component {
 
     labels = {
 
-        1: <>Useless</>,
+        1: 'Useless',
 
-        2: <>Very&nbsp;Bad</>,
+        2: 'Very Bad',
 
-        3: <>Poor</>,
+        3: 'Poor',
 
-        4: <>Okay</>,
+        4: 'Okay',
 
-        5: <>Not&nbsp;Bad</>,
+        5: 'Not Bad',
 
-        6: <>Good</>,
+        6: 'Good',
 
-        7: <>Excellent</>,
+        7: 'Excellent',
     };
 
     constructor(props) {
@@ -119,7 +119,8 @@ class Feedback extends Component {
                         });
                     }}
                 />
-                <Box ml={2}>{this.labels[this.state.hover !== -1 ? this.state.hover : this.state.feedback.rating]}</Box>
+                <Box ml={0.5}
+                     className="text-muted">{this.labels[this.state.hover !== -1 ? this.state.hover : this.state.feedback.rating]}</Box>
             </div>
         );
     }
@@ -288,7 +289,8 @@ class Feedback extends Component {
                                                                     precision={1}
                                                                     readOnly
                                                                 />
-
+                                                                <Box ml={0.5}
+                                                                     className="text-muted">{this.labels[feedback.rating]}</Box>
                                                             </div>
 
                                                             <hr/>
