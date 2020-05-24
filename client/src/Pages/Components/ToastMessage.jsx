@@ -1,6 +1,9 @@
 import React, {Component} from "react";
-import Alert from "react-bootstrap/Alert";
 import "./AlertStyles.css";
+import Alert from "@material-ui/lab/Alert";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import AlertTitle from "@material-ui/lab/AlertTitle";
+
 
 class ToastMessage extends Component {
 
@@ -11,7 +14,7 @@ class ToastMessage extends Component {
             show: false,
             message: '',
             messageType: 'Error',
-            statusColor: 'danger'
+            statusColor: 'error'
         }
     }
 
@@ -24,25 +27,56 @@ class ToastMessage extends Component {
         });
     }
 
+    useStyles = () => makeStyles((theme) => ({
+        root: {
+            width: '100%',
+            '& > * + *': {
+                marginTop: theme.spacing(2),
+            },
+        },
+    }));
+
 
     render() {
 
+        const classes = this.useStyles();
+
         if (this.state.show) {
-            return (
-                <div className="fixed-bottom" id={this.props.tId}>
 
-                    <Alert variant={this.state.statusColor} onClose={() => this.props.showFunction(false)} dismissible>
-                        <Alert.Heading>{this.state.messageType}</Alert.Heading>
-                        <p>{this.state.message}</p>
-                    </Alert>
+            if (this.state.statusColor === 'success') {
+                return (
+
+                    <div className={classes.root} id={this.props.tId}>
+                        <Alert onClose={() => {
+                            this.props.showFunction(false)
+                        }} severity="success">
+                            <AlertTitle>{this.state.messageType}</AlertTitle>
+                            <p>{this.state.message}</p>
+                        </Alert>
+                    </div>
 
 
-                </div>
+                );
+            } else {
+                return (
 
-            );
+                    <div className={classes.root} id={this.props.tId}>
+                        <Alert onClose={() => {
+                            this.props.showFunction(false)
+                        }} severity="error">
+                            <AlertTitle>{this.state.messageType}</AlertTitle>
+                            <p>{this.state.message}</p>
+                        </Alert>
+                    </div>
+
+                );
+            }
+
         }
 
         return (<></>);
+
+
     }
 
 

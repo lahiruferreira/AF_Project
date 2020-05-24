@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import ReplyModal from "../Components/ReplyModal";
 import Box from "@material-ui/core/Box";
 import ToastMessage from "../Components/ToastMessage";
+import "../Components/AlertStyles.css";
 
 //import {Link} from "react-router-dom";
 
@@ -22,7 +23,7 @@ class Feedback extends Component {
             showToast: false,
             toastMessage: '',
             toastType: 'Error',
-            typeColor: 'red'
+            typeColor: 'error'
         }
     }
 
@@ -74,7 +75,7 @@ class Feedback extends Component {
                 showToast: true,
                 toastMessage: "Unexpected Issue Occurred...",
                 toastType: 'Error',
-                typeColor: "danger"
+                typeColor: "error"
             });
 
             setTimeout(() => {
@@ -127,7 +128,7 @@ class Feedback extends Component {
                         showToast: true,
                         toastMessage: "Unexpected Response Status " + r.status + " Occurred...",
                         toastType: 'Error',
-                        typeColor: "danger"
+                        typeColor: "error"
                     });
                 }
             })
@@ -138,7 +139,7 @@ class Feedback extends Component {
                 showToast: true,
                 toastMessage: "Unexpected Issue Occurred...",
                 toastType: 'Error',
-                typeColor: "danger"
+                typeColor: "error"
             });
         });
 
@@ -162,9 +163,11 @@ class Feedback extends Component {
 
 
             <div className="pt-0">
-                <ToastMessage tId={"admin"} showFunction={this.setShow} showToast={this.state.showToast}
-                              message={this.state.toastMessage} messageType={this.state.toastType}
-                              statusColor={this.state.typeColor}/>
+                <div className="fixed-bottom w-100" id="toastMessageAdmin">
+                    <ToastMessage tId={"admin"} showFunction={this.setShow} showToast={this.state.showToast}
+                                  message={this.state.toastMessage} messageType={this.state.toastType}
+                                  statusColor={this.state.typeColor}/>
+                </div>
                 <Container>
                     <Card className="pt-0">
                         <Card.Header as="h5">Feedback&nbsp;from&nbsp;Users</Card.Header>
