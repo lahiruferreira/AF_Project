@@ -98,4 +98,12 @@ router.route('/add').post((req, res) =>{
             .catch(err => res.status(400).json('Error is:' + err));
     });
 
+    router.post("/getProducts",(req,res) => {
+        Product.find()
+            .exec((err,products) => {
+                if(err) return res.status(400).json({success: false, err})
+                res.status(200).json({success:true, products})
+            })
+    })
+
 module.exports = router;

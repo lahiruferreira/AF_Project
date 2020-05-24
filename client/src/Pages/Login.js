@@ -25,6 +25,7 @@ const Login = ({loginUser, isLoggedIn}) => {
 
     if (isLoggedIn) {
 
+
         loadUser1().then((res) => {
 
 
@@ -34,36 +35,28 @@ const Login = ({loginUser, isLoggedIn}) => {
 
         });
 
-
-
         console.log(user.position);
 
         switch (user.position) {
             case 'admin':
-                //alert("Admin Logged In Success");
                 return <Redirect to="/admin"/>
             case 'sm':
-                //alert("Store Manager Logged In Success");
                 return <Redirect to="/admin"/>
             case 'user':
-                //alert("User Logged In Success");
-                return <Redirect to="/CartView"/>
+                return <Redirect to="/LandingPage"/>
         }
+
 
     }
 
 
     const onChange = e => {
-        setData({...data, [e.target.name]: e.target.value});
+        setData({...data, [e.target.name]: e.target.value})
     };
 
     const submitData = () => {
-        if( email === '' || password ==='') {
-            return alert("Email and Password are required");
-        }else {
-            loginUser(email, password);
-        }
 
+        loginUser(email, password);
     };
 
 
@@ -103,17 +96,14 @@ const Login = ({loginUser, isLoggedIn}) => {
                                    name="password"/>
                         </div>
 
-                        <div className="login-btns">
-                        <button type="button" className="btn btn-info">
-                        <a className="register-anchor" href="/register">Register</a>
-                        </button>
+                        <a href="/register">Register</a>
 
                         <button type="submit"
                                 className="btn btn-primary"
                                 onClick={() => submitData()}>Submit
                         </button>
 
-                        </div>
+
                         <br/>
                         <br/>
                     </div>

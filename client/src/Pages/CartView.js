@@ -6,10 +6,11 @@ import LogedinHeader from "./LogedInHeader";
 import logo from '../Images/logo.jpg';
 import '../CSS/CartView.css';
 import axios from 'axios';
+import {addToCart} from '../action/auth';
+import {useDispatch} from 'react-redux';
 
 
  export default class CartView extends Component{
-
     constructor(props) {
         super(props);
          this.state = {
@@ -18,6 +19,13 @@ import axios from 'axios';
          };
         this.productList = this.productList.bind(this);
     }
+
+     addToCarthandler(productID){
+        console.log(productID);
+        const dispatch = useDispatch();
+        dispatch(addToCart(productID))
+     }
+
 
     componentDidMount() {
         axios.get('http://localhost:4001/cart/')
@@ -30,18 +38,19 @@ import axios from 'axios';
             })
     }
 
+
     productList(){
         return this.state.products.map(product =>(
             <div className="col-sm-6 col-md-4 mb-3">
                 <div className="img-thumbnail">
-                    <img src={logo} className="img-responsive" alt="logo"/>
+                    <img src={product.PImage} className="img-responsive" alt="logo"/>
                     <div className="figure-caption ml-3">
                         <h3>{product.PName}</h3>
                         <p>{product.PDescription}</p>
                         <div className="clearfix">
                             <div className="pull-left" style={{fontWeight:"bold" ,fontSize:"16px"}}>Rs {product.PPrice}</div>
-                            <p className="pull-right"><a href="#" className="btn btn-success" role="button">Add To Cart</a>
-                                <a href={'/add-to-cart/'+ product._id} className="btn btn-info" role="button">Wish List</a></p>
+                            <p className="pull-right"><a onClick={() => this.addToCarthandler(product._id)} className="btn btn-success" role="button">Add To Cart</a>
+                                <a href="#" className="btn btn-info" role="button">Wish List</a></p>
                         </div>
                     </div>
                 </div>

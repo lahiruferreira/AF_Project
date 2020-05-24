@@ -4,9 +4,9 @@ import {
     LOGIN_FAIL,
     REGISTER_FAIL,
     LOAD_USER,
-    AUTH_ERROR, LOG_OUT
+    AUTH_ERROR, LOG_OUT,
+    ADD_TO_CART_USER
 } from './constants/constants';
-
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -29,6 +29,12 @@ const authReducer = (state = initialState,action) => {
             return {
                 ...state,
                 isLoggedIn: true
+            }
+        case ADD_TO_CART_USER:
+            return {...state,userData:{
+                    ...state.userData,
+                    cart: action.playload
+                }
             }
         case LOGIN_FAIL:
         case REGISTER_FAIL:

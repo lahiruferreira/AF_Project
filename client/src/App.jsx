@@ -16,6 +16,7 @@ import CartView from "./Pages/CartView";
 //import SMLogin from "./Pages/Admin/SMLogin";
 //import SMPage from "./Pages/Admin/SMPage";
 import AllProduct from "./Pages/AllProduct"
+import LandingPage from "./Pages/LandingPage";
 
 if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'));
@@ -41,6 +42,7 @@ const App = () => {
                         <Route path="/contact-us" component={ContactUs}/>
                         <Route path="/CartView" component={CartView}/>
                         <Route path="/login" component={Login}/>
+                        <Route path="/LandingPage" component={LandingPage}/>
                         <Route path="/" component={Dashboard}/>
                     </Switch>
                 </Router>

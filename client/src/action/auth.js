@@ -1,5 +1,6 @@
 import {
-    AUTH_ERROR,
+    ADD_TO_CART_USER,
+    AUTH_ERROR, AUTH_USER,
     LOAD_SM,
     LOAD_USER,
     LOG_OUT,
@@ -224,6 +225,26 @@ export const loginSM = (email, password) => async dispatch => {
         })
     }
 };
+
+export function addToCart(_id){
+    const request = axios.post(`http://localhost:4001/api/cart/addToCart?productId=${_id}`)
+        .then(response => response.data);
+
+    return{
+        type: ADD_TO_CART_USER,
+        playload:request
+    }
+}
+
+export function auth() {
+    const request = axios.get(`http://localhost:4001/api/cart/auth`)
+        .then(response => response.data);
+
+    return {
+        type: AUTH_USER,
+        payload: request
+    }
+}
 
 
 /*export const loginSM = (email, password) => async dispatch => {
