@@ -15,7 +15,7 @@ import ContactUs from "./Pages/ContactUs";
 import CartView from "./Pages/CartView";
 //import SMLogin from "./Pages/Admin/SMLogin";
 //import SMPage from "./Pages/Admin/SMPage";
-
+import AllProduct from "./Pages/AllProduct"
 
 if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'));
@@ -34,7 +34,7 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/register" component={Register}/>
-
+                        <Route path="/allProduct" component={AllProduct}/>
                         <Route path="/UserPages" component={UserPages}/>
                         <Route path="/admin" component={AdminPages}/>
                         <Route path="/feedback" component={Feedback}/>

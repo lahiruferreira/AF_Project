@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import "./nav.css";
+import Swal from "sweetalert2";
 
 export default class CreateCategory extends Component {
     constructor(props) {
@@ -50,6 +51,32 @@ export default class CreateCategory extends Component {
             })
     }
 
+    confirmAlart(){
+        Swal.fire(
+            'Good job!',
+            'New category has created!',
+            'success'
+        )
+    }
+
+    CatSavedAlert(){
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Category updated successfully',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+
+    fieldmissAlart(){
+        Swal.fire({
+            icon: 'question',
+            title: 'Oppss! something missing',
+            text: 'Please select a category from the list'
+        })
+    }
+
 
     onSubmit(e){
         e.preventDefault();
@@ -62,24 +89,54 @@ export default class CreateCategory extends Component {
         console.log(category);
 
         axios.post('http://localhost:4001/category/add', category)
-            .then(res => console.log(res.data)
-            );
-        this.getData();
+            .then(res => {
+                console.log(res.data);
 
-        this.setState({
-            cname : "",
-            cdescription : ""
-        })
+                this.getData();
+
+                this.setState({
+                    cname : "",
+                    cdescription : ""
+                });
+
+                this.confirmAlart();
+                }
+            );
+
     }
 
     onDeleteCat(id){
-        axios.delete("http://localhost:4001/category/"+id)
-            .then(res=>console.log(res.data)
-            );
 
-        this.setState({
-            category: this.state.category.filter(del => del._id !== id)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+
+                //delete category
+                axios.delete("http://localhost:4001/category/"+id)
+                    .then(res=>{
+                        console.log(res.data)
+                        this.setState({
+                            category: this.state.category.filter(del => del._id !== id)
+                        })
+                        Swal.fire(
+                            'Deleted!',
+                            'Category has been deleted.',
+                            'success'
+                        )
+
+                        }
+                    );
+
+            }
         })
+
     }
 
 
@@ -94,22 +151,30 @@ export default class CreateCategory extends Component {
     }
 
     updateCategory(e){
-        e.preventDefault();
-        const category ={
-            cname : this.state.cname,
-            cdescription : this.state.cdescription,
+        console.log("update event:"+e);
+        if(this.state.cname !== "" || this.state.cdescription !== ""){
+            e.preventDefault();
+            const category ={
+                cname : this.state.cname,
+                cdescription : this.state.cdescription,
+            }
+
+            axios.post("http://localhost:4001/category/update/"+this.state.selectCategory._id ,category )
+                .then(res =>{
+                    console.log(res);
+                    this.getData();
+
+                    this.setState({
+                        cname : "",
+                        cdescription : ""
+                    })
+
+                    this.CatSavedAlert();
+                });
+        }else{
+            this.fieldmissAlart();
         }
 
-        axios.post("http://localhost:4001/category/update/"+this.state.selectCategory._id ,category )
-            .then(res =>{
-                console.log(res);
-                this.getData();
-
-                this.setState({
-                    cname : "",
-                    cdescription : ""
-                })
-            });
 
     }
 

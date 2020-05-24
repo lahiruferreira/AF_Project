@@ -17,10 +17,10 @@ import Login from "./SMLogin";
 function App() {
     return (
         <Router>
-            <div className="">
+            <div className="" style={{background:"white"}}>
                 <Navbar />
 
-                <div>
+                <div >
                     <div style={{padding: "20px"}}>
                         <Route path="/list" exact component={ProductList}/>
                     </div>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Product = props =>(
     <tr>
@@ -9,9 +10,12 @@ const Product = props =>(
         <td>{props.product.PDescription}</td>
         <td>{props.product.PBrand}</td>
         <td>{props.product.PAmount}</td>
-        <td>{props.product.PPrice}</td>
+        <td>{props.product.PPrice.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'LKR'
+        })}</td>
         <td>{props.product.PDiscount}</td>
-        <td>{props.product.updatedAt.slice(0,10)}</td>
+        <td>{props.product.updatedAt.toLocaleString()}</td>
         <td width={180}>
            <Link to={"/edit/"+props.product._id}><button className="btn-primary">Update</button></Link>  <button className="btn-danger" onClick={() => {props.deleteProduct(props.product._id)}}>Delete</button>
         </td>
@@ -42,11 +46,35 @@ export default class ProductList extends Component {
             })
     }
 
+
     deleteProduct(id){
-        axios.delete("http://localhost:4001/product/"+id)
-            .then(res=> console.log(res.data));
-        this.setState({
-            product: this.state.product.filter(el => el._id !== id)
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+
+                //delete product
+                axios.delete("http://localhost:4001/product/"+id)
+                    .then(res=>{
+                        console.log(res.data);
+                        this.setState({
+                            product: this.state.product.filter(el => el._id !== id)
+                        })
+                        Swal.fire(
+                            'Deleted!',
+                            'Product has been deleted.',
+                            'success'
+                        )
+                    })
+
+            }
         })
     }
 
