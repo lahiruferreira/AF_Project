@@ -68,9 +68,7 @@ const Header = () => {
                             <li className="nav-item active">
                                 <a className="nav-link" href="/contact-us">Contact-us <span className="sr-only">(current)</span></a>
                             </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/admin">Admin <span className="sr-only">(current)</span></a>
-                            </li>
+
 
 
                         </ul>

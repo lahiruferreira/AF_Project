@@ -4,10 +4,21 @@ import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 import '../CSS/login.css';
 import Header from "./Header";
+import Swal from "sweetalert2";
 //import Register from "./Register";
 
 
 const Login = ({loginUser, isLoggedIn}) => {
+
+    const loggedAlert = ()=>{
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'You have successfully logged in',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
 
     let [data, setData] = useState({
         email: '',
@@ -18,13 +29,12 @@ const Login = ({loginUser, isLoggedIn}) => {
         position: ''
     })
 
-    // let {position} = user;
 
     let {email, password} = data;
 
 
     if (isLoggedIn) {
-
+        loggedAlert();
 
         loadUser1().then((res) => {
 
@@ -49,6 +59,14 @@ const Login = ({loginUser, isLoggedIn}) => {
 
     }
 
+    const fieldmissAlart = ()=>{
+        Swal.fire({
+            icon: 'question',
+            title: 'Oppss! something missing',
+            text: 'Please enter user name and password!'
+        })
+    }
+
 
     const onChange = e => {
         setData({...data, [e.target.name]: e.target.value})
@@ -56,7 +74,12 @@ const Login = ({loginUser, isLoggedIn}) => {
 
     const submitData = () => {
 
-        loginUser(email, password);
+        if(email==="" ||password===""){
+            fieldmissAlart();
+        }else{
+            loginUser(email, password);
+        }
+
     };
 
 
